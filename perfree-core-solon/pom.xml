@@ -9,10 +9,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>perfree-core</artifactId>
+    <artifactId>perfree-core-solon</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
-    <description>核心包,核心逻辑</description>
+    <description>核心包solon版本,核心逻辑</description>
 
     <dependencies>
         <!-- solon -->

@@ -1,0 +1,103 @@
+version: 4.0.11
+server:
+  port: 8080
+  encoding: UTF-8
+  session:
+    timeout: 7200
+  request:
+    maxBodySize: -1    # 对应原来的max-file-size
+    maxFileSize: -1    # 对应原来的max-request-size
+
+solon.logging:
+  logger:
+    "root": "ERROR"    # 生产环境使用ERROR级别
+  appender:
+    file:
+      name: "file"
+      pattern: "%d{yyyy-MM-dd HH:mm:ss:sss} %-5level %logger{36} - %msg%n"
+      path: "./resources/logs"
+      rolling: "logs/perfree.log"
+      maxFileSize: "10MB"
+      maxHistory: 7
+      maxSize: "100MB"
+
+solon.app:
+  name: "perfree-server"
+  group: "perfree"
+
+# 数据源配置
+datasource:
+  db1:
+    type: "com.zaxxer.hikari.HikariDataSource"
+    url: "jdbc:mysql://153.153.234.13:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
+    username: "root"
+    password: "xwt@123"
+    driverClassName: "com.mysql.cj.jdbc.Driver"
+    hikariCP:
+      minimumIdle: 30
+      maximumPoolSize: 300
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+      poolName: "perfree"
+      autoCommit: true
+
+# MyBatis Plus 配置
+mybatis.plus:
+  db1:
+    typeAliasesPackage: "com.perfree.*.model"
+    mapperLocations: "classpath*:mapper/*.xml"
+    configuration:
+      mapUnderscoreToCamelCase: false
+      # 生产环境注释掉日志实现
+      #logImpl: "org.apache.ibatis.logging.stdout.StdOutImpl"
+    globalConfig:
+      dbConfig:
+        idType: "NONE"
+
+# OpenAPI配置 (使用solon-openapi2-knife4j)
+solon.openapi:
+  name: "Perfree API"
+  version: "4.0.11"
+  description: "Perfree API Documentation"
+  # 配置扫描包路径
+  scan:
+    packages: ["com.perfree.controller"]
+  # knife4j增强配置
+  knife4j:
+    enable: true
+    setting:
+      language: zh_cn
+      enableVersion: true
+      enableHomeCustom: true
+      enableFooterCustom: true
+      footerCustomContent: "MIT License | Copyright  2024-[PerfreeBase](https://base.perfree.org.cn)"
+    cors: false
+    production: true    # 生产环境设置为true
+    basic:
+      enable: true     # 生产环境建议开启basic认证
+      username: ${KNIFE4J_USERNAME:admin}
+      password: ${KNIFE4J_PASSWORD:admin}
+  # API分组配置
+  groups:
+    - name: "common"
+      title: "公共接口(无需登录)"
+      packages: ["com.perfree.controller.common"]
+    - name: "auth"
+      title: "认证接口(需登录)"
+      packages: ["com.perfree.controller.auth"]
+    - name: "view"
+      title: "视图接口(界面渲染)"
+      packages: ["com.perfree.controller.view"]
+    - name: "other"
+      title: "其他接口"
+      excludePackages: 
+        - "com.perfree.controller.view"
+        - "com.perfree.controller.auth"
+        - "com.perfree.controller.common"
+
+# Perfree自定义配置
+perfree:
+  autoLoadDevPlugin: false    # 生产环境关闭插件自动更新
+  autoLoadDevPluginTime: 10000
+  demoModel: false

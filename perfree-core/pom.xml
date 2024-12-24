@@ -15,6 +15,24 @@
     <description>核心包,核心逻辑</description>
 
     <dependencies>
+        <!-- solon -->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-web</artifactId>
+        </dependency>
+
+        <!-- 异步 -->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-scheduling</artifactId>
+        </dependency>
+
+        <!-- 文档相关 -->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-openapi2-knife4j</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
