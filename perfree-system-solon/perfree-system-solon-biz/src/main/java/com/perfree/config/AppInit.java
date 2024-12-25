@@ -5,10 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.jfinal.template.Directive;
 import com.perfree.commons.directive.TemplateDirective;
 import com.perfree.commons.exception.ServiceException;
-import com.perfree.commons.utils.ClassPathFileUtil;
-import com.perfree.commons.utils.SpringBeanUtil;
-import com.perfree.commons.utils.SqlExecUtils;
-import com.perfree.commons.utils.VersionUtil;
+import com.perfree.commons.utils.*;
 import com.perfree.constant.OptionConstant;
 import com.perfree.enjoy.EnjoyConfig;
 import com.perfree.enums.ErrorCode;
@@ -23,6 +20,8 @@ import com.perfree.service.option.OptionService;
 import com.perfree.service.plugins.PluginsService;
 import com.perfree.theme.ThemeManager;
 import org.noear.solon.annotation.Inject;
+import org.noear.solon.core.event.AppLoadEndEvent;
+import org.noear.solon.core.event.EventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +31,7 @@ import org.noear.solon.annotation.Component;
 
 import java.io.File;
 import java.sql.SQLException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +41,7 @@ import java.util.Map;
  * @date 15:39 2023/9/28
  */
 @Component
-public class AppInit implements ApplicationRunner {
+public class AppInit implements EventListener<AppLoadEndEvent> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationRunner.class);
 
@@ -69,39 +69,6 @@ public class AppInit implements ApplicationRunner {
         this.pluginsService = pluginsService;
         this.dictDataService = dictDataService;
         this.themeManager = themeManager;
-    }
-
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        if (!datasourceIsExist()) {
-            LOGGER.info("-> 数据库未初始化,正在执行初始化....");
-            File sqlFile = ClassPathFileUtil.getClassPathFile("classpath:sql/perfree.sql");
-            if(sqlFile == null || !sqlFile.exists()){
-                throw new ServiceException(ErrorCode.DATASOURCE_INIT_SQL_NOT_EXIST);
-            }
-            SqlExecUtils.execSqlFile(sqlFile);
-            optionService.handleWebVersion();
-            LOGGER.info("-> 数据库初始化完毕....");
-        }
-
-        handleUpdate();
-        handleInit();
-        String banner = """
-                ----------------------------------------------------------------------------------
-                                         __                     \s
-                                        / _|                    \s
-                  _ __     ___   _ __  | |_   _ __    ___    ___\s
-                 | '_ \\   / _ \\ | '__| |  _| | '__|  / _ \\  / _ \\
-                 | |_) | |  __/ | |    | |   | |    |  __/ |  __/
-                 | .__/   \\___| |_|    |_|   |_|     \\___|  \\___|
-                 | |                                            \s
-                 |_|                                            \s
-                 
-                 Successfully started!
-                 access port: %s
-                ----------------------------------------------------------------------------------
-                """.formatted(port);
-        System.out.println(banner);
     }
 
     private void handleUpdate() throws SQLException {
@@ -133,7 +100,8 @@ public class AppInit implements ApplicationRunner {
 
     private void handleInit() throws Exception {
         LOGGER.info("-> 初始化模板指令....");
-        loadDirective();
+        //TODO 注释初始化模板
+        //loadDirective();
         LOGGER.info("-> 初始化模板指令完成");
 
         LOGGER.info("-> 初始化存储策略配置缓存....");
@@ -178,19 +146,19 @@ public class AppInit implements ApplicationRunner {
     /**
      * Load Template Directive
      */
-    private static void loadDirective() {
-        Map<String, Object> beans = SpringBeanUtil.context.getBeansWithAnnotation(TemplateDirective.class);
-        for (Map.Entry<String, Object> entry : beans.entrySet()) {
-            Object bean = entry.getValue();
-            TemplateDirective injectBean = bean.getClass().getAnnotation(TemplateDirective.class);
-            Directive directive = (Directive) bean;
-            Class<? extends Directive> directiveByName = EnjoyConfig.jfr.getEngine().getEngineConfig().getDirective(injectBean.value());
-            if (directiveByName == null) {
-                LOGGER.info("Add Directive: {}", injectBean.value());
-                EnjoyConfig.jfr.addDirective(injectBean.value(), directive.getClass());
-            }
-        }
-    }
+//    private static void loadDirective() {
+//        Map<String, Object> beans = SolonBeanUtil.getBeansWithAnnotation(TemplateDirective.class);
+//        for (Map.Entry<String, Object> entry : beans.entrySet()) {
+//            Object bean = entry.getValue();
+//            TemplateDirective injectBean = bean.getClass().getAnnotation(TemplateDirective.class);
+//            Directive directive = (Directive) bean;
+//            Class<? extends Directive> directiveByName = EnjoyConfig.jfr.getEngine().getEngineConfig().getDirective(injectBean.value());
+//            if (directiveByName == null) {
+//                LOGGER.info("Add Directive: {}", injectBean.value());
+//                EnjoyConfig.jfr.addDirective(injectBean.value(), directive.getClass());
+//            }
+//        }
+//    }
 
     private Boolean datasourceIsExist() {
         try{
@@ -203,5 +171,39 @@ public class AppInit implements ApplicationRunner {
             // 出现错误, 数据库未初始化
             return false;
         }
+    }
+
+    @Override
+    public void onEvent(AppLoadEndEvent appLoadEndEvent) throws Throwable {
+
+        if (!datasourceIsExist()) {
+            LOGGER.info("-> 数据库未初始化,正在执行初始化....");
+            File sqlFile = ClassPathFileUtil.getClassPathFile("classpath:sql/perfree.sql");
+            if(sqlFile == null || !sqlFile.exists()){
+                throw new ServiceException(ErrorCode.DATASOURCE_INIT_SQL_NOT_EXIST);
+            }
+            SqlExecUtils.execSqlFile(sqlFile);
+            optionService.handleWebVersion();
+            LOGGER.info("-> 数据库初始化完毕....");
+        }
+
+        handleUpdate();
+        handleInit();
+        String banner = """
+                ----------------------------------------------------------------------------------
+                                         __                     \s
+                                        / _|                    \s
+                  _ __     ___   _ __  | |_   _ __    ___    ___\s
+                 | '_ \\   / _ \\ | '__| |  _| | '__|  / _ \\  / _ \\
+                 | |_) | |  __/ | |    | |   | |    |  __/ |  __/
+                 | .__/   \\___| |_|    |_|   |_|     \\___|  \\___|
+                 | |                                            \s
+                 |_|                                            \s
+                 
+                 Successfully started!
+                 access port: %s
+                ----------------------------------------------------------------------------------
+                """.formatted(port);
+        System.out.println(banner);
     }
 }

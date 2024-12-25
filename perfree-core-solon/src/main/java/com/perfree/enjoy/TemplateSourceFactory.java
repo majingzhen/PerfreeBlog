@@ -5,6 +5,7 @@ import com.jfinal.template.source.FileSourceFactory;
 import com.jfinal.template.source.ISource;
 import com.jfinal.template.source.ISourceFactory;
 import com.perfree.commons.constant.SystemConstants;
+import com.perfree.commons.utils.SolonBeanUtil;
 import com.perfree.commons.utils.SpringBeanUtil;
 import com.perfree.plugin.PluginInfo;
 import com.perfree.plugin.PluginInfoHolder;
@@ -45,7 +46,7 @@ public class TemplateSourceFactory implements ISourceFactory {
 
         try{
             HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            RequestMappingHandlerMapping handlerMapping = SpringBeanUtil.context.getBean(RequestMappingHandlerMapping.class);
+            RequestMappingHandlerMapping handlerMapping = SolonBeanUtil.getBean(RequestMappingHandlerMapping.class);
             HandlerExecutionChain handlerChain = handlerMapping.getHandler(request);
             if (handlerChain == null) {
                 throw new IllegalArgumentException("File not found!");

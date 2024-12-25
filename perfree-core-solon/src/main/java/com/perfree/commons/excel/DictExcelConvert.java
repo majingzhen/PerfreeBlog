@@ -10,6 +10,7 @@ import com.alibaba.excel.metadata.data.ReadCellData;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.perfree.cache.DictDataCacheService;
+import com.perfree.commons.utils.SolonBeanUtil;
 import com.perfree.commons.utils.SpringBeanUtil;
 import com.perfree.system.api.dictData.dto.DictDataDTO;
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public class DictExcelConvert implements Converter<Object> {
                                     GlobalConfiguration globalConfiguration) {
         String parentDictType = getParentDictType(contentProperty);
         String dictLabel = readCellData.getStringValue();
-        DictDataCacheService dataCacheService = SpringBeanUtil.context.getBean(DictDataCacheService.class);
+        DictDataCacheService dataCacheService = SolonBeanUtil.getBean(DictDataCacheService.class);
         DictDataDTO byDictValueAndParentDictType = dataCacheService.getByDictValueAndParentDictType(parentDictType, dictLabel);
         if (null == byDictValueAndParentDictType) {
             LOGGER.error("数据字典中不存在parentDictType:{}, dictLabel: {}", parentDictType, dictLabel);
@@ -62,7 +63,7 @@ public class DictExcelConvert implements Converter<Object> {
         }
         String parentDictType = getParentDictType(contentProperty);
         String dictValue = String.valueOf(value);
-        DictDataCacheService dataCacheService = SpringBeanUtil.context.getBean(DictDataCacheService.class);
+        DictDataCacheService dataCacheService = SolonBeanUtil.getBean(DictDataCacheService.class);
         DictDataDTO byDictValueAndParentDictType = dataCacheService.getByDictValueAndParentDictType(parentDictType, dictValue);
         if (null == byDictValueAndParentDictType) {
             LOGGER.error("数据字典中不存在parentDictType:{}, dictValue: {}", parentDictType, dictValue);

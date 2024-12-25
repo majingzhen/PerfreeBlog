@@ -1,5 +1,6 @@
 package com.perfree;
 
+import com.perfree.commons.utils.SolonBeanUtil;
 import org.noear.solon.Solon;
 import org.noear.solon.SolonApp;
 import org.noear.solon.annotation.Import;
@@ -18,6 +19,8 @@ import org.springframework.boot.SpringApplication;
 @Import(scanPackages = {"com.perfree"})
 public class Application {
     public static void main(String[] args) {
-        Solon.start(Application.class, args);
+        Solon.start(Application.class, app->{
+            SolonBeanUtil.setContext(app.context());
+        });
     }
 }

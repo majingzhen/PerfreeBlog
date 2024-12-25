@@ -12,6 +12,7 @@ import com.perfree.cache.OptionCacheService;
 import com.perfree.commons.constant.SystemConstants;
 import com.perfree.commons.exception.ServiceException;
 import com.perfree.commons.utils.FileUtils;
+import com.perfree.commons.utils.SolonBeanUtil;
 import com.perfree.commons.utils.SpringBeanUtil;
 import com.perfree.constant.OptionConstant;
 import com.perfree.enjoy.EnjoyConfig;
@@ -373,7 +374,7 @@ public class ThemeManager {
 
     public void addStaticResourceHandler(String locationStr) {
         try{
-            SimpleUrlHandlerMapping mapping = (SimpleUrlHandlerMapping) SpringBeanUtil.context.getBean("resourceHandlerMapping");
+            SimpleUrlHandlerMapping mapping = (SimpleUrlHandlerMapping) SolonBeanUtil.getBean("resourceHandlerMapping");
             ResourceHttpRequestHandler handler = (ResourceHttpRequestHandler) mapping.getUrlMap().get("/static/**");
             Class<?> clazz = handler.getClass();
             Field field = clazz.getDeclaredField("locationValues");

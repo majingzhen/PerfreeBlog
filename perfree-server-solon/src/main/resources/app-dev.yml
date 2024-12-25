@@ -29,9 +29,9 @@ solon.app:
 solon.dataSources:
   perfree:
     class: "com.zaxxer.hikari.HikariDataSource"
-    jdbcUrl: "jdbc:mysql://153.153.234.13:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
-    username: "root"
-    password: "xwt@123"
+    jdbcUrl: "jdbc:mysql://perfree:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
+    username: "perfree"
+    password: "HiimaWf3YeyL4mej"
     driverClassName: "com.mysql.cj.jdbc.Driver"
     hikariCP:
       minimumIdle: 30
@@ -51,7 +51,7 @@ mybatis.perfree:
     - "classpath:mapper/*.xml"
   configuration:
     cacheEnabled: false
-    mapUnderscoreToCamelCase: true
+    mapUnderscoreToCamelCase: false
     mapperVerifyEnabled: false
     logImpl: "org.apache.ibatis.logging.stdout.StdOutImpl"
   globalConfig:

@@ -31,7 +31,7 @@ public class SqlExecUtils {
         }
         Resource resource = new FileSystemResource(sqlFile.getAbsoluteFile());
         EncodedResource encodedResource = new EncodedResource(resource, StandardCharsets.UTF_8);
-        HikariDataSource hikariDataSource = SpringBeanUtil.context.getBean(HikariDataSource.class);
+        HikariDataSource hikariDataSource = SolonBeanUtil.getBean(HikariDataSource.class);
         ScriptUtils.executeSqlScript(hikariDataSource.getConnection(), encodedResource);
     }
 }

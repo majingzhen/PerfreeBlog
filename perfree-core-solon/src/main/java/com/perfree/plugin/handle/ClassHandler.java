@@ -1,6 +1,7 @@
 package com.perfree.plugin.handle;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.perfree.commons.utils.SolonBeanUtil;
 import com.perfree.commons.utils.SpringBeanUtil;
 import com.perfree.plugin.PluginApplicationContextHolder;
 import com.perfree.plugin.PluginInfo;
@@ -107,7 +108,7 @@ public class ClassHandler implements BasePluginRegistryHandler{
         }
 
         // 把mapper取消注册
-        SqlSessionFactory sqlSessionFactory = SpringBeanUtil.context.getBean(SqlSessionFactory.class);
+        SqlSessionFactory sqlSessionFactory = SolonBeanUtil.getBean(SqlSessionFactory.class);
         List<Class<?>> mapperList = getMapperList(pluginInfo);
         MybatisConfiguration configuration = (MybatisConfiguration) sqlSessionFactory.getConfiguration();
         for (Class<?> aClass : mapperList) {
