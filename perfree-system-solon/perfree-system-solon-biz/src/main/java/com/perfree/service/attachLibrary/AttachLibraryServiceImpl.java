@@ -17,6 +17,7 @@ import com.perfree.model.AttachLibrary;
 import com.perfree.security.SecurityFrameworkUtils;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,7 @@ import java.util.List;
 @Component
 public class AttachLibraryServiceImpl extends ServiceImpl<AttachLibraryMapper, AttachLibrary> implements AttachLibraryService {
 
-    @Db
+    @Inject
     private AttachLibraryMapper attachLibraryMapper;
 
 

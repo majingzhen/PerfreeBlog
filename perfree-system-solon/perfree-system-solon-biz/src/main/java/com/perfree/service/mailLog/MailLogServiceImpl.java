@@ -10,6 +10,7 @@ import com.perfree.mapper.MailLogMapper;
 import com.perfree.model.MailLog;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ import java.util.List;
 @Component
 public class MailLogServiceImpl extends ServiceImpl<MailLogMapper, MailLog> implements MailLogService {
 
-    @Db
+    @Inject
     private MailLogMapper mailLogMapper;
 
 

@@ -26,36 +26,37 @@ solon.app:
   group: "com.perfree"
 
 # 数据源配置
-solon.dataSources.perfree:
-  class: "com.zaxxer.hikari.HikariDataSource"
-  jdbcUrl: "jdbc:mysql://153.153.234.13:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
-  username: "root"
-  password: "xwt@123"
-  driverClassName: "com.mysql.cj.jdbc.Driver"
-  hikariCP:
-    minimumIdle: 30
-    maximumPoolSize: 300
-    connectionTimeout: 30000
-    idleTimeout: 600000
-    maxLifetime: 1800000
-    poolName: "perfree"
-    autoCommit: true
+solon.dataSources:
+  perfree:
+    class: "com.zaxxer.hikari.HikariDataSource"
+    jdbcUrl: "jdbc:mysql://153.153.234.13:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
+    username: "root"
+    password: "xwt@123"
+    driverClassName: "com.mysql.cj.jdbc.Driver"
+    hikariCP:
+      minimumIdle: 30
+      maximumPoolSize: 300
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+      poolName: "perfree"
+      autoCommit: true
 
 # MyBatis Plus 配置
-mybatis:
-  db1:
-    typeAliases:
-      - com.perfree.*.model.*
-    mappers:
-      - com.perfree.*.mapper.*
-    configuration:
-      cacheEnabled: false
-      mapUnderscoreToCamelCase: true
-      mapperVerifyEnabled: false
-      logImpl: "org.apache.ibatis.logging.stdout.StdOutImpl"
-    globalConfig:
-      dbConfig:
-        idType: "NONE"
+mybatis.perfree:
+  typeAliases:
+    - "com.perfree.*.model"
+  mappers:
+    - "com.perfree.mapper"
+    - "classpath:mapper/*.xml"
+  configuration:
+    cacheEnabled: false
+    mapUnderscoreToCamelCase: true
+    mapperVerifyEnabled: false
+    logImpl: "org.apache.ibatis.logging.stdout.StdOutImpl"
+  globalConfig:
+    dbConfig:
+      idType: "NONE"
 
 # OpenAPI配置 (使用solon-openapi2-knife4j)
 solon.openapi:

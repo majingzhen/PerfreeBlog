@@ -2,6 +2,7 @@ package com.perfree.demoModel;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.noear.solon.annotation.Inject;
 import org.springframework.beans.factory.annotation.Value;
 import org.noear.solon.annotation.Component;
 
@@ -9,7 +10,7 @@ import org.noear.solon.annotation.Component;
 @Component
 public class DemoModeAspect {
 
-    @Value("${perfree.demoModel}")
+    @Inject("${perfree.demoModel}")
     private Boolean demoModel;
 
     @Before("@annotation(demoMode)")

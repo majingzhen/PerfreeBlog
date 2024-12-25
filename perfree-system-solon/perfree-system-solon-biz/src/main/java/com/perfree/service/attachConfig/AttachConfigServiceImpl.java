@@ -44,7 +44,7 @@ public class AttachConfigServiceImpl extends ServiceImpl<AttachConfigMapper, Att
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AttachConfigServiceImpl.class);
 
-    @Db
+    @Inject
     private AttachConfigMapper attachConfigMapper;
 
     @Inject

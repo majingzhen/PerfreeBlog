@@ -17,6 +17,7 @@ import com.perfree.model.Category;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,10 +39,10 @@ import static com.perfree.enums.ErrorCode.CATEGORY_SLUG_EXIST;
 @Component
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 
-    @Db
+    @Inject
     private CategoryMapper categoryMapper;
 
-    @Db
+    @Inject
     private ArticleCategoryMapper articleCategoryMapper;
 
     @Override

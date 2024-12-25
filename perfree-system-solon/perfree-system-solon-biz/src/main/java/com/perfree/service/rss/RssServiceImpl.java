@@ -32,7 +32,7 @@ public class RssServiceImpl implements RssService{
     private static final String RSS_MODE_FULL = "0";
     private static final String RSS_DEFAULT_NUM = "20";
 
-    @Value("${server.port}")
+    @Inject("${server.port}")
     private int serverPort;
 
     @Inject

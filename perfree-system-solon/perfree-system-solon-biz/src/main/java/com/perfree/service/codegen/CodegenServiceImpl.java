@@ -48,13 +48,13 @@ import java.util.stream.Collectors;
 @Component
 public class CodegenServiceImpl implements CodegenService{
 
-    @Db
+
     private DataSourceProperties dataSourceProperties;
 
-    @Db
+    @Inject
     private CodegenTableMapper codegenTableMapper;
 
-    @Db
+    @Inject
     private CodegenColumnMapper codegenColumnMapper;
 
     @Inject

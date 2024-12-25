@@ -57,7 +57,7 @@ public class SystemController {
     @Inject
     private CommonService commonService;
 
-    @Value("${perfree.demoModel}")
+    @Inject("${perfree.demoModel}")
     private Boolean demoModel;
 
     @Get

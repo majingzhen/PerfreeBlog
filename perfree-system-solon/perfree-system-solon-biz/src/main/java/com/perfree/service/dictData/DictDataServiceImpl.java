@@ -29,7 +29,7 @@ import java.util.List;
 @Component
 public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> implements DictDataService {
 
-    @Db
+    @Inject
     private DictDataMapper dictDataMapper;
 
     @Inject

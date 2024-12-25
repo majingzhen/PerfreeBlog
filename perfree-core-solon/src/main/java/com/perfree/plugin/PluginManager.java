@@ -29,7 +29,7 @@ import java.io.File;
 public class PluginManager{
     private static final Logger LOGGER = LoggerFactory.getLogger(PluginManager.class);
 
-    @Value("${version}")
+    @Inject(value = "${version}")
     private String version;
 
     @Inject

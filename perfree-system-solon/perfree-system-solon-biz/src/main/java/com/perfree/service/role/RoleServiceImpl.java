@@ -14,6 +14,7 @@ import com.perfree.model.Role;
 import com.perfree.model.RoleMenu;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,10 +33,10 @@ import java.util.List;
 @Component
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
-    @Db
+    @Inject
     private RoleMapper roleMapper;
 
-    @Db
+    @Inject
     private RoleMenuMapper roleMenuMapper;
 
 

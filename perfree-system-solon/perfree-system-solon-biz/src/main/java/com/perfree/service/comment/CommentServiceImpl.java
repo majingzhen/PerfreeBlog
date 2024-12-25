@@ -46,10 +46,10 @@ import java.util.List;
 @Component
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
 
-    @Db
+    @Inject
     private CommentMapper commentMapper;
 
-    @Db
+    @Inject
     private UserMapper userMapper;
 
     @Inject

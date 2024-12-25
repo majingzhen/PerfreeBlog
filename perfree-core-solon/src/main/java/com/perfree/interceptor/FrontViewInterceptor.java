@@ -21,7 +21,7 @@ import java.util.Map;
 @Component
 public class FrontViewInterceptor implements HandlerInterceptor {
 
-    @Value("${server.port}")
+    @Inject("${server.port}")
     private int serverPort;
 
     @Inject

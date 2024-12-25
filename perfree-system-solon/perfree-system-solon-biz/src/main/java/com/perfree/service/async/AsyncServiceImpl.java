@@ -26,13 +26,13 @@ import java.util.HashMap;
 @Component
 public class AsyncServiceImpl implements AsyncService{
 
-    @Value("${server.port}")
+    @Inject("${server.port}")
     private int serverPort;
 
-    @Db
+    @Inject
     private CommentMapper commentMapper;
 
-    @Db
+    @Inject
     private ArticleMapper articleMapper;
 
     @Inject

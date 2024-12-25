@@ -22,6 +22,7 @@ import com.perfree.service.dictData.DictDataService;
 import com.perfree.service.option.OptionService;
 import com.perfree.service.plugins.PluginsService;
 import com.perfree.theme.ThemeManager;
+import org.noear.solon.annotation.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,10 +45,10 @@ public class AppInit implements ApplicationRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationRunner.class);
 
-    @Value("${server.port}")
+    @Inject("${server.port}")
     private String port;
 
-    @Value("${version}")
+    @Inject("${version}")
     private String version;
 
     private final PluginsService pluginsService;

@@ -6,6 +6,7 @@ import com.perfree.model.ArticleTag;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.solon.annotation.Db;
 import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Inject;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.List;
 @Component
 public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, ArticleTag> implements ArticleTagService {
 
-    @Db
+    @Inject
     private ArticleTagMapper articleTagMapper;
 
     @Override

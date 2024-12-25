@@ -42,10 +42,10 @@ import static com.perfree.enums.ErrorCode.MENU_EXISTS_CHILDREN;
 @Component
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 
-    @Db
+    @Inject
     private MenuMapper menuMapper;
 
-    @Db
+    @Inject
     private RoleMenuMapper roleMenuMapper;
 
     @Inject

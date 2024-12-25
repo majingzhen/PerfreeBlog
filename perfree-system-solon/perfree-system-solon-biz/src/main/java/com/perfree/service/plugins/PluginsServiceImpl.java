@@ -53,13 +53,13 @@ import java.util.List;
 public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> implements PluginsService {
     private final static Logger LOGGER = LoggerFactory.getLogger(PluginsServiceImpl.class);
 
-    @Value("${perfree.autoLoadDevPlugin}")
+    @Inject("${perfree.autoLoadDevPlugin}")
     private Boolean autoLoadDevPlugin;
 
-    @Db
+    @Inject
     private PluginsMapper pluginsMapper;
 
-    @Db
+    @Inject
     private PluginManager pluginManager;
 
     @Inject
@@ -68,7 +68,7 @@ public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> impl
     @Inject
     private PluginDevManager pluginDevManager;
 
-    @Db
+    @Inject
     private MenuMapper menuMapper;
 
     @Inject

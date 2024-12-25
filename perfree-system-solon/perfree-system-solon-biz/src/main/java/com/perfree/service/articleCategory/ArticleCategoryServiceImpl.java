@@ -6,6 +6,7 @@ import com.perfree.model.ArticleCategory;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.solon.annotation.Db;
 import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Inject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 @Component
 public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMapper, ArticleCategory> implements ArticleCategoryService {
 
-    @Db
+    @Inject
     private ArticleCategoryMapper articleCategoryMapper;
 
     @Override

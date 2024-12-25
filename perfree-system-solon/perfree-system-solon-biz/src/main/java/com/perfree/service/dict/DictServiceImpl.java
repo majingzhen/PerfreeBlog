@@ -13,6 +13,7 @@ import com.perfree.model.Dict;
 import com.perfree.model.DictData;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,10 +28,10 @@ import java.util.List;
 @Component
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements DictService {
 
-    @Db
+    @Inject
     private DictMapper dictMapper;
 
-    @Db
+    @Inject
     private DictDataMapper dictDataMapper;
 
 

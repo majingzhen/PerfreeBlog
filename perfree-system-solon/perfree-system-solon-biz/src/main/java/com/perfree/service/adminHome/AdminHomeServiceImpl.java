@@ -31,7 +31,7 @@ import java.util.Properties;
 @Component
 public class AdminHomeServiceImpl implements AdminHomeService {
 
-    @Value("${version}")
+    @Inject("${version}")
     private String version;
 
     @Inject

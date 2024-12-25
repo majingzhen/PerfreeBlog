@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.jfinal.template.Engine;
 import com.perfree.commons.constant.SystemConstants;
 import com.perfree.enjoy.shared.TplMethodShared;
+import org.noear.solon.annotation.Inject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class EnjoyConfig {
 
-    @Value("${version}")
+    @Inject("${version}")
     private String version;
 
-    @Value("${spring.profiles.active}")
+    @Inject("${spring.profiles.active}")
     private String profilesActive;
 
     public static JFinalViewResolver jfr = null;

@@ -53,7 +53,7 @@ public class AttachServiceImpl extends ServiceImpl<AttachMapper, Attach> impleme
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AttachServiceImpl.class);
 
-    @Db
+    @Inject
     private AttachMapper attachMapper;
 
     @Inject

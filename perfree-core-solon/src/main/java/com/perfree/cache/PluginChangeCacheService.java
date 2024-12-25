@@ -21,7 +21,7 @@ public class PluginChangeCacheService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PluginChangeCacheService.class);
 
-    @Value("${perfree.autoLoadDevPluginTime}")
+    @Inject("${perfree.autoLoadDevPluginTime}")
     private Long autoLoadDevPluginTime;
 
     @Inject

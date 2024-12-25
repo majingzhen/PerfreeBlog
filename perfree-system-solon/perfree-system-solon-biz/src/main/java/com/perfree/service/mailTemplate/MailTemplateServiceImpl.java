@@ -31,7 +31,7 @@ public class MailTemplateServiceImpl extends ServiceImpl<MailTemplateMapper, Mai
      */
     private static final Pattern PATTERN_PARAMS = Pattern.compile("\\{(.*?)}");
 
-    @Db
+    @Inject
     private MailTemplateMapper mailTemplateMapper;
 
     @Inject

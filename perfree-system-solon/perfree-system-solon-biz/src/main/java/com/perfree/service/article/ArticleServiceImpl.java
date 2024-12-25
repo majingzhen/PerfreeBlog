@@ -64,7 +64,7 @@ import static com.perfree.enums.ErrorCode.ARTICLE_SLUG_EXIST;
 @Component
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
-    @Db
+    @Inject
     private ArticleMapper articleMapper;
 
     @Inject

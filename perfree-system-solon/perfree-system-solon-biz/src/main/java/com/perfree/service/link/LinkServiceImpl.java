@@ -15,6 +15,7 @@ import com.perfree.mapper.LinkMapper;
 import com.perfree.model.Link;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements LinkService {
 
-    @Db
+    @Inject
     private LinkMapper linkMapper;
 
     @Override

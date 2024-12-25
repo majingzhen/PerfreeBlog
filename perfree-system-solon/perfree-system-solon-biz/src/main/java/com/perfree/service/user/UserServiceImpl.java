@@ -65,13 +65,13 @@ import static com.perfree.enums.ErrorCode.*;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
-    @Db
+    @Inject
     private UserMapper userMapper;
 
-    @Db
+    @Inject
     private RoleMapper roleMapper;
 
-    @Db
+    @Inject
     private UserRoleMapper userRoleMapper;
 
     @Inject

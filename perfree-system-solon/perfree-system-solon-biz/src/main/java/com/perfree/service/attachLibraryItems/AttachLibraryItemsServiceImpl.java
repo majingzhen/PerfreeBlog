@@ -14,6 +14,7 @@ import com.perfree.model.AttachLibraryItems;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.solon.annotation.Db;
 import org.noear.solon.annotation.Delete;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ import java.util.List;
 @Component
 public class AttachLibraryItemsServiceImpl extends ServiceImpl<AttachLibraryItemsMapper, AttachLibraryItems> implements AttachLibraryItemsService {
 
-    @Db
+    @Inject
     private AttachLibraryItemsMapper attachLibraryItemsMapper;
 
 

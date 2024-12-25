@@ -37,7 +37,7 @@ import java.io.File;
 @Component
 public class CommonServiceImpl implements CommonService{
 
-    @Db
+    @Inject
     private CommonMapper commonMapper;
 
     @Inject

@@ -17,6 +17,7 @@ import com.perfree.model.Tag;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.data.annotation.Tran;
 import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,10 +38,10 @@ import static com.perfree.enums.ErrorCode.TAG_SLUG_EXIST;
 @Component
 public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagService {
 
-    @Db
+    @Inject
     private TagMapper tagMapper;
 
-    @Db
+    @Inject
     private ArticleTagMapper articleTagMapper;
 
     @Override

@@ -40,10 +40,10 @@ import java.util.List;
 @Component
 public class OptionServiceImpl extends ServiceImpl<OptionMapper, Option> implements OptionService {
 
-    @Value("${version}")
+    @Inject("${version}")
     private String version;
 
-    @Db
+    @Inject
     private OptionMapper optionMapper;
 
     @Inject

@@ -10,6 +10,7 @@ import com.perfree.model.JournalAttach;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.solon.annotation.Db;
 import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Inject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 @Component
 public class JournalAttachServiceImpl extends ServiceImpl<JournalAttachMapper, JournalAttach> implements JournalAttachService {
 
-    @Db
+    @Inject
     private JournalAttachMapper journalAttachMapper;
 
     @Override
