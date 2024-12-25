@@ -26,9 +26,9 @@ solon.app:
   group: "com.perfree"
 
 # 数据源配置
-datasource.db1:
-  type: "com.zaxxer.hikari.HikariDataSource"
-  url: "jdbc:mysql://153.153.234.13:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
+solon.dataSources.perfree:
+  class: "com.zaxxer.hikari.HikariDataSource"
+  jdbcUrl: "jdbc:mysql://153.153.234.13:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
   username: "root"
   password: "xwt@123"
   driverClassName: "com.mysql.cj.jdbc.Driver"
