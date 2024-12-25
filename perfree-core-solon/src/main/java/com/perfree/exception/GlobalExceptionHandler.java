@@ -29,11 +29,9 @@ import java.util.Objects;
  * @description 定义全局异常处理
  * @date 15:37 2023/9/28
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class GlobalExceptionHandler{
     private final static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
-
 
     @ExceptionHandler(NoResourceFoundException.class)
     public String handleNoResourceFoundException(NoResourceFoundException exception) {

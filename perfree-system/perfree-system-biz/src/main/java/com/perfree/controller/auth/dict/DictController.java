@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +24,9 @@ import static com.perfree.commons.common.CommonResult.success;
 * @description 数据字典 controller
 * @author Perfree
 **/
-@RestController
+@Controller
 @Tag(name = "数据字典相关接口")
-@RequestMapping("api/auth/dict")
+@Mapping("api/auth/dict")
 public class DictController {
 
     @Resource
@@ -35,7 +35,7 @@ public class DictController {
     @PostMapping("/page")
     @Operation(summary = "数据字典分页列表")
     @PreAuthorize("@ss.hasPermission('admin:dict:query')")
-    public CommonResult<PageResult<DictRespVO>> page(@RequestBody DictPageReqVO pageVO) {
+    public CommonResult<PageResult<DictRespVO>> page(@Body DictPageReqVO pageVO) {
         PageResult<Dict> dictPageResult = dictService.dictPage(pageVO);
         return success(DictConvert.INSTANCE.convertPageResultVO(dictPageResult));
     }
@@ -44,7 +44,7 @@ public class DictController {
     @Operation(summary = "添加数据字典")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:dict:create')")
-    public CommonResult<DictRespVO> add(@RequestBody @Valid DictAddReqVO dictAddReqVO) {
+    public CommonResult<DictRespVO> add(@Body @Valid DictAddReqVO dictAddReqVO) {
         return success(DictConvert.INSTANCE.convertRespVO(dictService.add(dictAddReqVO)));
     }
 
@@ -52,13 +52,13 @@ public class DictController {
     @Operation(summary = "更新数据字典")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:dict:update')")
-    public CommonResult<DictRespVO> update(@RequestBody @Valid DictUpdateReqVO dictUpdateReqVO) {
+    public CommonResult<DictRespVO> update(@Body @Valid DictUpdateReqVO dictUpdateReqVO) {
         return success(DictConvert.INSTANCE.convertRespVO(dictService.update(dictUpdateReqVO)));
     }
 
     @GetMapping("/get")
     @Operation(summary = "根据id获取数据字典")
-    public CommonResult<DictRespVO> get(@RequestParam(value = "id") Integer id) {
+    public CommonResult<DictRespVO> get(@Param(value = "id") Integer id) {
         return success(DictConvert.INSTANCE.convertRespVO(dictService.get(id)));
     }
 
@@ -66,7 +66,7 @@ public class DictController {
     @DemoMode
     @Operation(summary = "根据id删除数据字典")
     @PreAuthorize("@ss.hasPermission('admin:dict:delete')")
-    public CommonResult<Boolean> del(@RequestParam(value = "id") Integer id) {
+    public CommonResult<Boolean> del(@Param(value = "id") Integer id) {
         return success(dictService.del(id));
     }
 
@@ -78,7 +78,7 @@ public class DictController {
 
     @GetMapping("/queryListAll")
     @Operation(summary = "根据条件获取所有数据字典")
-    public CommonResult<List<DictRespVO>> queryListAll(@RequestParam(value = "dictType") String dictType, @RequestParam(value = "dictName") String dictName) {
+    public CommonResult<List<DictRespVO>> queryListAll(@Param(value = "dictType") String dictType, @Param(value = "dictName") String dictName) {
         return success(DictConvert.INSTANCE.convertListRespVO(dictService.queryListAll(dictType, dictName)));
     }
 }

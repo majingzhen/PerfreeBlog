@@ -26,9 +26,9 @@ import java.util.List;
  * @version 1.0.0
  * @create 2023/9/28 10:16
  **/
-@RestController
+@Controller
 @Tag(name = "系统基础接口")
-@RequestMapping("api/auth")
+@Mapping("api/auth")
 public class SystemController {
     @Resource
     private UserService userService;

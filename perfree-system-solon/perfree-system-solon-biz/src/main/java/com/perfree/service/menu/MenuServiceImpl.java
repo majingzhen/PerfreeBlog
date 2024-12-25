@@ -20,7 +20,10 @@ import com.perfree.security.vo.LoginUserVO;
 import com.perfree.service.role.RoleService;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.data.annotation.Tran;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -36,16 +39,16 @@ import static com.perfree.enums.ErrorCode.MENU_EXISTS_CHILDREN;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 
-    @Resource
+    @Db
     private MenuMapper menuMapper;
 
-    @Resource
+    @Db
     private RoleMenuMapper roleMenuMapper;
 
-    @Resource
+    @Inject
     private RoleService roleService;
 
     @Override
@@ -81,7 +84,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    @Transactional
+    @Tran
     public Menu addOrUpdate(MenuAddOrUpdateReqVO menuAddOrUpdateReqVO) {
         Menu menu = MenuConvert.INSTANCE.convertMenu(menuAddOrUpdateReqVO);
         if (StringUtils.isNotBlank(menu.getId())) {
@@ -94,7 +97,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(String id) {
         List<Menu> menuList = menuMapper.getByParentId(id);
         if (!menuList.isEmpty()) {
@@ -111,7 +114,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    @Transactional
+    @Tran
     public Menu createMenu(Menu menu) {
         menu.setId(IdUtil.simpleUUID());
         menuMapper.insert(menu);
@@ -119,7 +122,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean deleteMenuByPluginId(String pluginId) {
         menuMapper.deleteMenuByPluginId(pluginId);
         return true;

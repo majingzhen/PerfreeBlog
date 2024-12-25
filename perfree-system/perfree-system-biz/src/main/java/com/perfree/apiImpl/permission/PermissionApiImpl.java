@@ -9,12 +9,12 @@ import com.perfree.service.menu.MenuService;
 import com.perfree.service.role.RoleService;
 import com.perfree.system.api.permission.PermissionApi;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Service
+@Component
 public class PermissionApiImpl implements PermissionApi {
 
     @Resource

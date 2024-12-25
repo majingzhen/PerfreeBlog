@@ -9,7 +9,7 @@ import com.perfree.mail.MailService;
 import com.perfree.mapper.MailTemplateMapper;
 import com.perfree.model.MailTemplate;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * @description 邮件模板 ServiceImpl
  * @author Perfree
  **/
-@Service
+@Component
 public class MailTemplateServiceImpl extends ServiceImpl<MailTemplateMapper, MailTemplate> implements MailTemplateService {
 
     /**
@@ -41,7 +41,7 @@ public class MailTemplateServiceImpl extends ServiceImpl<MailTemplateMapper, Mai
     }
 
     @Override
-    @Transactional
+    @Tran
     public MailTemplate add(MailTemplateAddReqVO mailTemplateAddReqVO) {
         MailTemplate mailTemplate = MailTemplateConvert.INSTANCE.convertAddReqVO(mailTemplateAddReqVO);
         mailTemplate.setMailParams(ReUtil.findAllGroup1(PATTERN_PARAMS, mailTemplate.getMailContent()));
@@ -50,7 +50,7 @@ public class MailTemplateServiceImpl extends ServiceImpl<MailTemplateMapper, Mai
     }
 
     @Override
-    @Transactional
+    @Tran
     public MailTemplate update(MailTemplateUpdateReqVO mailTemplateUpdateReqVO) {
         MailTemplate mailTemplate = MailTemplateConvert.INSTANCE.convertUpdateReqVO(mailTemplateUpdateReqVO);
         mailTemplate.setMailParams(ReUtil.findAllGroup1(PATTERN_PARAMS, mailTemplate.getMailContent()));
@@ -64,7 +64,7 @@ public class MailTemplateServiceImpl extends ServiceImpl<MailTemplateMapper, Mai
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         mailTemplateMapper.deleteById(id);
         return true;

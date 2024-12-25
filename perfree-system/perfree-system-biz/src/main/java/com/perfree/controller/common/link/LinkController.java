@@ -8,13 +8,13 @@ import com.perfree.service.link.LinkService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
+@Controller
 @Tag(name = "友链相关接口")
-@RequestMapping("api/link")
+@Mapping("api/link")
 public class LinkController {
 
     @Resource
@@ -23,14 +23,14 @@ public class LinkController {
 
     @PostMapping("/page")
     @Operation(summary = "友链分页列表")
-    public CommonResult<PageResult<LinkRespVO>> page(@RequestBody LinkPageReqVO pageVO) {
+    public CommonResult<PageResult<LinkRespVO>> page(@Body LinkPageReqVO pageVO) {
         PageResult<LinkRespVO> linkPageResult = linkService.linkPage(pageVO);
         return success(linkPageResult);
     }
 
     @GetMapping("/get")
     @Operation(summary = "获取友链")
-    public CommonResult<LinkRespVO> get(@RequestParam(value = "id") Integer id) {
+    public CommonResult<LinkRespVO> get(@Param(value = "id") Integer id) {
         return success(linkService.getLinkById(id));
     }
 }

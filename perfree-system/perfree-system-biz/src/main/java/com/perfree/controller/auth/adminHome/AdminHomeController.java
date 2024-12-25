@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.perfree.commons.common.CommonResult.success;
 
 
-@RestController
+@Controller
 @Tag(name = "首页相关接口")
-@RequestMapping("api/auth/adminHome")
+@Mapping("api/auth/adminHome")
 public class AdminHomeController {
 
     @Resource

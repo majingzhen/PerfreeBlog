@@ -7,7 +7,7 @@ import com.perfree.commons.directive.BaseDirective;
 import com.perfree.commons.directive.TemplateDirective;
 import com.perfree.service.common.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 @TemplateDirective("statistics")
 @Component

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfree.mapper.ArticleCategoryMapper;
 import com.perfree.model.ArticleCategory;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMapper, ArticleCategory> implements ArticleCategoryService {
 
     @Resource

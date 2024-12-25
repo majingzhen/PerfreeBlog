@@ -19,7 +19,7 @@ import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanInitializationException;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
@@ -35,7 +35,7 @@ import java.util.List;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class AttachConfigServiceImpl extends ServiceImpl<AttachConfigMapper, AttachConfig> implements AttachConfigService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AttachConfigServiceImpl.class);
@@ -52,7 +52,7 @@ public class AttachConfigServiceImpl extends ServiceImpl<AttachConfigMapper, Att
     }
 
     @Override
-    @Transactional
+    @Tran
     public AttachConfig add(AttachConfigCreateVO attachConfigCreateVO) {
         AttachConfig attachConfig = AttachConfigConvert.INSTANCE.convertCreateVO(attachConfigCreateVO);
         attachConfigMapper.insert(attachConfig);
@@ -62,7 +62,7 @@ public class AttachConfigServiceImpl extends ServiceImpl<AttachConfigMapper, Att
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updateAttachConfig(AttachConfigUpdateVO attachConfigUpdateVO) {
         AttachConfig attachConfig = AttachConfigConvert.INSTANCE.convertUpdateVO(attachConfigUpdateVO);
         attachConfigMapper.updateById(attachConfig);
@@ -72,7 +72,7 @@ public class AttachConfigServiceImpl extends ServiceImpl<AttachConfigMapper, Att
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         attachConfigMapper.deleteById(id);
         attachConfigCacheService.removeAttachConfig(id);

@@ -26,30 +26,33 @@ import com.perfree.service.option.OptionService;
 import com.perfree.service.user.UserService;
 import com.perfree.system.api.option.dto.OptionDTO;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.data.annotation.Tran;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 
-@Service
+@Component
 public class CommonServiceImpl implements CommonService{
 
-    @Resource
+    @Db
     private CommonMapper commonMapper;
 
-    @Resource
+    @Inject
     private OptionCacheService optionCacheService;
 
-    @Resource
+    @Inject
     private OptionService optionService;
 
-    @Resource
+    @Inject
     private ArticleService articleService;
 
-    @Resource
+    @Inject
     private UserService userService;
 
-    @Resource
+    @Inject
     private UserRoleMapper  userRoleMapper;
 
 
@@ -59,7 +62,7 @@ public class CommonServiceImpl implements CommonService{
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean initWeb(InitWebReqVO reqVO) {
         OptionDTO option = optionCacheService.getOption(OptionEnum.WEB_INIT.getKey(), OptionConstant.OPTION_IDENTIFICATION_SYSTEM);
         if (null != option && option.getValue().equals(OptionConstant.OPTION_PUBLIC_TRUE)) {

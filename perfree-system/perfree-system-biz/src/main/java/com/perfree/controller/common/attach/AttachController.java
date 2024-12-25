@@ -21,9 +21,9 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-@RestController
+@Controller
 @Tag(name = "附件相关接口")
-@RequestMapping("api/attach")
+@Mapping("api/attach")
 public class AttachController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(com.perfree.controller.auth.attach.AttachController.class);

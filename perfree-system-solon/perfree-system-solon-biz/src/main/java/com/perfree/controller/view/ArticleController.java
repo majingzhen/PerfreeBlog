@@ -13,17 +13,20 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.noear.solon.annotation.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.inject.Inject;
+
 @Tag(name = "文章页相关")
 @Controller
 public class ArticleController  extends BaseViewController {
 
-    @Resource
+    @Inject
     private ArticleService articleService;
 
     @GetMapping(value = {"/articleList/{pageIndex}", "/articleList", "article"})
@@ -58,7 +61,7 @@ public class ArticleController  extends BaseViewController {
 
     @GetMapping(value = {"/article/search", "/article/search/{pageIndex}"})
     @FrontViewNodeRender
-    public String searchListPage(@PathVariable(value = "pageIndex", required = false) Integer pageIndex, @RequestParam("title") String title, Model model) {
+    public String searchListPage(@PathVariable(value = "pageIndex", required = false) Integer pageIndex, @Param("title") String title, Model model) {
         model.addAttribute("url", SystemConstants.URL_ARTICLE_SEARCH);
         model.addAttribute("title", title);
         model.addAttribute("pageIndex", null == pageIndex ? 1 : pageIndex);

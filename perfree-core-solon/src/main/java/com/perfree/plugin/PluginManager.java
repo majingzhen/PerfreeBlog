@@ -11,10 +11,11 @@ import com.perfree.plugin.pojo.PluginBaseConfig;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.noear.solon.annotation.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 import java.io.File;
 
@@ -31,7 +32,7 @@ public class PluginManager{
     @Value("${version}")
     private String version;
 
-    @Resource
+    @Inject
     private PluginHandle pluginHandle;
 
     /**

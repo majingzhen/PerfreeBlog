@@ -6,6 +6,7 @@ import com.perfree.security.service.SecurityFrameworkServiceImpl;
 import com.perfree.system.api.permission.PermissionApi;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
+import org.noear.solon.annotation.Inject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +41,7 @@ public class SecurityConfig {
 
     private final CorsFilter corsFilter;
 
-    @Resource
+    @Inject
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
     @Bean("ss")

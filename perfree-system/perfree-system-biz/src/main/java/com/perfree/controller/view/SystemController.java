@@ -52,7 +52,7 @@ public class SystemController extends BaseViewController {
 
     @GetMapping("/logout")
     @Operation(summary = "退出登录")
-    public String logout(HttpServletRequest request, @RequestParam(value = "redirectPath", required = false) String redirectPath) {
+    public String logout(HttpServletRequest request, @Param(value = "redirectPath", required = false) String redirectPath) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();

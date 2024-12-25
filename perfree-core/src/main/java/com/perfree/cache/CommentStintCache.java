@@ -3,11 +3,11 @@ package com.perfree.cache;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
 import java.util.concurrent.TimeUnit;
 
-@Service
+@Component
 public class CommentStintCache {
 
     private final Cache<String, String> commentStintCache;

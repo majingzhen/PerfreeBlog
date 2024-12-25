@@ -26,12 +26,12 @@ import com.perfree.service.option.OptionService;
 import com.perfree.service.user.UserService;
 import com.perfree.system.api.option.dto.OptionDTO;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 
-@Service
+@Component
 public class CommonServiceImpl implements CommonService{
 
     @Resource
@@ -59,7 +59,7 @@ public class CommonServiceImpl implements CommonService{
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean initWeb(InitWebReqVO reqVO) {
         OptionDTO option = optionCacheService.getOption(OptionEnum.WEB_INIT.getKey(), OptionConstant.OPTION_IDENTIFICATION_SYSTEM);
         if (null != option && option.getValue().equals(OptionConstant.OPTION_PUBLIC_TRUE)) {

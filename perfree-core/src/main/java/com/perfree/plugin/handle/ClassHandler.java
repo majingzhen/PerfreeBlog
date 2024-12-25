@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.annotation.Annotation;

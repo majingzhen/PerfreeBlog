@@ -8,13 +8,13 @@ import com.perfree.service.article.ArticleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
+@Controller
 @Tag(name = "动态相关接口")
-@RequestMapping("api/journal")
+@Mapping("api/journal")
 public class JournalController {
 
     @Resource
@@ -22,13 +22,13 @@ public class JournalController {
 
     @PostMapping("/page")
     @Operation(summary = "动态分页列表")
-    public CommonResult<PageResult<JournalRespVO>> page(@RequestBody JournalPageReqVO pageVO) {
+    public CommonResult<PageResult<JournalRespVO>> page(@Body JournalPageReqVO pageVO) {
         return success(articleService.journalPage(pageVO));
     }
 
     @GetMapping("/get")
     @Operation(summary = "根据id获取动态")
-    public CommonResult<JournalRespVO> get(@RequestParam(value = "id") Integer id) {
+    public CommonResult<JournalRespVO> get(@Param(value = "id") Integer id) {
         return CommonResult.success(articleService.getJournalById(id));
     }
 

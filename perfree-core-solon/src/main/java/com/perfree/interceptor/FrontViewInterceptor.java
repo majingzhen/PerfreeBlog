@@ -8,8 +8,9 @@ import com.perfree.enums.OptionEnum;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.noear.solon.annotation.Inject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +24,7 @@ public class FrontViewInterceptor implements HandlerInterceptor {
     @Value("${server.port}")
     private int serverPort;
 
-    @Resource
+    @Inject
     private OptionCacheService optionCacheService;
 
     @Override

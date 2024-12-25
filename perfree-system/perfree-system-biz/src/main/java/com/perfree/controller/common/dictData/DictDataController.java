@@ -22,9 +22,9 @@ import static com.perfree.commons.common.CommonResult.success;
 * @description 数据字典值 controller
 * @author Perfree
 **/
-@RestController
+@Controller
 @Tag(name = "数据字典值相关接口")
-@RequestMapping("api/dictData")
+@Mapping("api/dictData")
 public class DictDataController {
 
     @Resource

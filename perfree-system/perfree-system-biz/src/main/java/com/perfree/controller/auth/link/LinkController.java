@@ -14,13 +14,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
+@Controller
 @Tag(name = "友链相关接口")
-@RequestMapping("api/auth/link")
+@Mapping("api/auth/link")
 public class LinkController {
 
     @Resource
@@ -29,7 +29,7 @@ public class LinkController {
 
     @PostMapping("/page")
     @Operation(summary = "友链分页列表")
-    public CommonResult<PageResult<LinkRespVO>> page(@RequestBody LinkPageReqVO pageVO) {
+    public CommonResult<PageResult<LinkRespVO>> page(@Body LinkPageReqVO pageVO) {
         PageResult<LinkRespVO> linkPageResult = linkService.linkPage(pageVO);
         return success(linkPageResult);
     }
@@ -37,7 +37,7 @@ public class LinkController {
     @PostMapping("/add")
     @Operation(summary = "添加友链")
     @PreAuthorize("@ss.hasPermission('admin:link:create')")
-    public CommonResult<LinkRespVO> add(@RequestBody @Valid LinkAddReqVO linkAddReqVO) {
+    public CommonResult<LinkRespVO> add(@Body @Valid LinkAddReqVO linkAddReqVO) {
         Link link = linkService.addLink(linkAddReqVO);
         return success(LinkConvert.INSTANCE.convertRespVO(link));
     }
@@ -45,21 +45,21 @@ public class LinkController {
     @PutMapping("/update")
     @Operation(summary = "更新友链")
     @PreAuthorize("@ss.hasPermission('admin:link:update')")
-    public CommonResult<LinkRespVO> update(@RequestBody @Valid LinkUpdateReqVO linkUpdateReqVO) {
+    public CommonResult<LinkRespVO> update(@Body @Valid LinkUpdateReqVO linkUpdateReqVO) {
         Link link = linkService.updateLink(linkUpdateReqVO);
         return success(LinkConvert.INSTANCE.convertRespVO(link));
     }
 
     @GetMapping("/get")
     @Operation(summary = "获取友链")
-    public CommonResult<LinkRespVO> get(@RequestParam(value = "id") Integer id) {
+    public CommonResult<LinkRespVO> get(@Param(value = "id") Integer id) {
         return success(linkService.getLinkById(id));
     }
 
     @DeleteMapping("/del")
     @Operation(summary = "删除友链")
     @PreAuthorize("@ss.hasPermission('admin:link:delete')")
-    public CommonResult<Boolean> del(@RequestParam(value = "id") Integer id) {
+    public CommonResult<Boolean> del(@Param(value = "id") Integer id) {
         return success(linkService.del(id));
     }
 

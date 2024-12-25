@@ -1,11 +1,12 @@
 package com.perfree.commons.utils;
 
+
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.core.util.CollectionUtils;
 import com.perfree.commons.common.PageParam;
 import com.perfree.commons.common.SortingField;
 import net.sf.jsqlparser.expression.Alias;

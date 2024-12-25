@@ -16,7 +16,7 @@ import com.perfree.mapper.AttachLibraryMapper;
 import com.perfree.model.AttachLibrary;
 import com.perfree.security.SecurityFrameworkUtils;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
  * @description 附件库 ServiceImpl
  * @author Perfree
  **/
-@Service
+@Component
 public class AttachLibraryServiceImpl extends ServiceImpl<AttachLibraryMapper, AttachLibrary> implements AttachLibraryService {
 
     @Resource
@@ -43,7 +43,7 @@ public class AttachLibraryServiceImpl extends ServiceImpl<AttachLibraryMapper, A
     }
 
     @Override
-    @Transactional
+    @Tran
     public AttachLibrary add(AttachLibraryAddReqVO attachLibraryAddReqVO) {
         AttachLibrary attachLibrary = AttachLibraryConvert.INSTANCE.convertAddReqVO(attachLibraryAddReqVO);
         attachLibraryMapper.insert(attachLibrary);
@@ -51,7 +51,7 @@ public class AttachLibraryServiceImpl extends ServiceImpl<AttachLibraryMapper, A
     }
 
     @Override
-    @Transactional
+    @Tran
     public AttachLibrary update(AttachLibraryUpdateReqVO attachLibraryUpdateReqVO) {
         AttachLibrary attachLibrary = AttachLibraryConvert.INSTANCE.convertUpdateReqVO(attachLibraryUpdateReqVO);
         attachLibraryMapper.updateById(attachLibrary);
@@ -68,7 +68,7 @@ public class AttachLibraryServiceImpl extends ServiceImpl<AttachLibraryMapper, A
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         attachLibraryMapper.deleteById(id);
         return true;

@@ -13,7 +13,7 @@ import com.perfree.mapper.RoleMenuMapper;
 import com.perfree.model.Role;
 import com.perfree.model.RoleMenu;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.List;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
     @Resource
@@ -48,7 +48,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean assignRoleMenu(RoleMenuReqVO roleMenuReqVO) {
         roleMenuMapper.deleteByRoleId(roleMenuReqVO.getRoleId());
         List<RoleMenu> roleMenuList = new ArrayList<>();
@@ -68,7 +68,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    @Transactional
+    @Tran
     public Role add(RoleAddReqVO roleAddReqVO) {
         Role role = RoleConvert.INSTANCE.convertAddReqVO(roleAddReqVO);
         roleMapper.insert(role);
@@ -76,7 +76,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    @Transactional
+    @Tran
     public Role update(RoleUpdateReqVO roleUpdateReqVO) {
         Role role = RoleConvert.INSTANCE.convertUpdateReqVO(roleUpdateReqVO);
         roleMapper.updateById(role);
@@ -84,7 +84,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         roleMenuMapper.deleteByRoleId(id);
         roleMapper.deleteById(id);

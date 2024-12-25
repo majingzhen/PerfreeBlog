@@ -32,8 +32,11 @@ import com.perfree.model.CodegenColumn;
 import com.perfree.model.CodegenTable;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.data.annotation.Tran;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
@@ -42,19 +45,19 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class CodegenServiceImpl implements CodegenService{
 
-    @Resource
+    @Db
     private DataSourceProperties dataSourceProperties;
 
-    @Resource
+    @Db
     private CodegenTableMapper codegenTableMapper;
 
-    @Resource
+    @Db
     private CodegenColumnMapper codegenColumnMapper;
 
-    @Resource
+    @Inject
     private CodegenEngine codegenEngine;
 
     @Override
@@ -69,7 +72,7 @@ public class CodegenServiceImpl implements CodegenService{
     }
 
     @Override
-    @Transactional
+    @Tran
     public void createCodegenList(CodegenCreateListReqVO reqVO) {
         for (String tableName : reqVO.getTableNames()) {
             TableInfo tableInfo = getTableInfoHandle(tableName);
@@ -103,7 +106,7 @@ public class CodegenServiceImpl implements CodegenService{
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean saveConfig(CodegenInfoReqVO codegenInfoReqVO) {
         CodegenTable codegenTable = CodegenConvert.INSTANCE.convertByCodegenTableReqVO( codegenInfoReqVO.getCodegenTable());
         codegenTableMapper.updateById(codegenTable);
@@ -148,7 +151,7 @@ public class CodegenServiceImpl implements CodegenService{
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         codegenColumnMapper.delByTableId(id);
         codegenTableMapper.deleteById(id);

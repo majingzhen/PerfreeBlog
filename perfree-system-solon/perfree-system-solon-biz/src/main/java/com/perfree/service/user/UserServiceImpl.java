@@ -35,11 +35,14 @@ import com.perfree.system.api.option.dto.OptionDTO;
 import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.data.annotation.Tran;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -58,32 +61,32 @@ import static com.perfree.enums.ErrorCode.*;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
-    @Resource
+    @Db
     private UserMapper userMapper;
 
-    @Resource
+    @Db
     private RoleMapper roleMapper;
 
-    @Resource
+    @Db
     private UserRoleMapper userRoleMapper;
 
-    @Resource
+    @Inject
     private CaptchaCacheService captchaCacheService;
 
-    @Resource
+    @Inject
     private OptionCacheService optionCacheService;
 
-    @Resource
+    @Inject
     private MenuService menuService;
 
-    @Resource
+    @Inject
     private AsyncService asyncService;
 
-    @Resource
+    @Inject
     private FindPasswordCacheService findPasswordCacheService;
 
     @Override
@@ -156,7 +159,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         userRoleMapper.deleteByUserId(id);
         userMapper.deleteById(id);
@@ -164,7 +167,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
+    @Tran
     public User addUser(UserAddReqVO userAddReqVO) {
         User user = UserConvert.INSTANCE.convertAddVO(userAddReqVO);
         if (StringUtils.isBlank(userAddReqVO.getPassword())) {
@@ -188,7 +191,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
+    @Tran
     public User updateUser(UserUpdateReqVO userUpdateReqVO) {
         User user = UserConvert.INSTANCE.convertUpdateVO(userUpdateReqVO);
         User byAccount = userMapper.findByAccount(userUpdateReqVO.getAccount());
@@ -214,7 +217,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updateUserRole(UserRoleReqVO userRoleReqVO) {
         userRoleMapper.deleteByUserId(userRoleReqVO.getId());
         List<UserRole> userRoleList = new ArrayList<>();
@@ -247,7 +250,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updateStatus(UserStatusReqVO userStatusReqVO) {
         User user = UserConvert.INSTANCE.convertByStatusReqVO(userStatusReqVO);
         userMapper.updateById(user);
@@ -255,7 +258,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
+    @Tran
     public void updateUserAvatar(String url, Integer id) {
         User user = new User();
         user.setAvatar(url);
@@ -281,7 +284,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updatePassword(UserUpdatePasswordReqVO userUpdatePasswordReqVO) {
         LoginUserVO loginUser = SecurityFrameworkUtils.getLoginUser();
         if (null == loginUser) {
@@ -299,7 +302,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
+    @Tran
     public User register(RegisterUserReqVO reqVO) {
         String isOpenRegister = optionCacheService.getDefaultValue(OptionEnum.WEB_IS_REGISTER.getKey(), OptionConstant.OPTION_IDENTIFICATION_SYSTEM_SETTING, OptionConstant.OPTION_PUBLIC_TRUE);
         if (isOpenRegister.equals(OptionConstant.OPTION_PUBLIC_FALSE)) {
@@ -363,7 +366,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean findPasswordStep1(FindPasswordStep1ReqVO reqVO) {
         validCaptchaHandle(reqVO.getUuid(), reqVO.getCode());
         User byAccount = userMapper.findByAccount(reqVO.getAccount());
@@ -381,7 +384,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean findPasswordStep2(FindPasswordStep2ReqVO reqVO) {
         validCaptchaHandle(reqVO.getUuid(), reqVO.getCode());
         if (!findPasswordCacheService.getCode(reqVO.getAccount()).equals(reqVO.getFindPasswordCode())) {

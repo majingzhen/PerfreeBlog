@@ -14,7 +14,7 @@ import com.perfree.controller.auth.attachLibrary.vo.AttachLibraryPageReqVO;
 import com.perfree.controller.auth.attachLibrary.vo.AttachLibraryRespVO;
 import com.perfree.service.attachLibrary.AttachLibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 @TemplateDirective("attachLibraryPage")
 @Component

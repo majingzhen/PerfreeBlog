@@ -6,12 +6,13 @@ import com.perfree.service.mailTemplate.MailTemplateService;
 import com.perfree.system.api.mailTemplate.MailTemplateApi;
 import com.perfree.system.api.mailTemplate.dto.MailTemplateDTO;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Inject;
 
-@Service
+@Component
 public class MailTemplateApiImpl implements MailTemplateApi {
 
-    @Resource
+    @Inject
     private MailTemplateService mailTemplateService;
 
 

@@ -8,7 +8,7 @@ import ${table.packageName}.convert.${table.lowerFirstClassName}.${table.classNa
 import ${table.packageName}.mapper.${table.className}Mapper;
 import ${table.packageName}.model.${table.className};
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
  * @description ${table.comment} ServiceImpl
  * @author ${table.author}
  **/
-@Service
+@Component
 public class ${table.className}ServiceImpl extends ServiceImpl<${table.className}Mapper, ${table.className}> implements ${table.className}Service {
 
     @Resource
@@ -31,7 +31,7 @@ public class ${table.className}ServiceImpl extends ServiceImpl<${table.className
     }
 
     @Override
-    @Transactional
+    @Tran
     public ${table.className} add(${table.className}AddReqVO ${table.lowerFirstClassName}AddReqVO) {
         ${table.className} ${table.lowerFirstClassName} = ${table.className}Convert.INSTANCE.convertAddReqVO(${table.lowerFirstClassName}AddReqVO);
         ${table.lowerFirstClassName}Mapper.insert(${table.lowerFirstClassName});
@@ -39,7 +39,7 @@ public class ${table.className}ServiceImpl extends ServiceImpl<${table.className
     }
 
     @Override
-    @Transactional
+    @Tran
     public ${table.className} update(${table.className}UpdateReqVO ${table.lowerFirstClassName}UpdateReqVO) {
         ${table.className} ${table.lowerFirstClassName} = ${table.className}Convert.INSTANCE.convertUpdateReqVO(${table.lowerFirstClassName}UpdateReqVO);
         ${table.lowerFirstClassName}Mapper.updateById(${table.lowerFirstClassName});
@@ -52,7 +52,7 @@ public class ${table.className}ServiceImpl extends ServiceImpl<${table.className
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(${table.primaryColumnType} ${table.primaryColumn}) {
         ${table.lowerFirstClassName}Mapper.deleteById(${table.primaryColumn});
         return true;

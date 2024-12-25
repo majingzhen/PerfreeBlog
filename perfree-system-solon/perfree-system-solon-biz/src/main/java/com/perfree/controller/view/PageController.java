@@ -17,11 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.inject.Inject;
+
 @Tag(name = "通用page页面相关")
 @Controller
 public class PageController extends BaseViewController {
 
-    @Resource
+    @Inject
     private ArticleService articleService;
 
     @GetMapping(value = {"/page/{slug}", "/page/{slug}/{pageIndex}"})

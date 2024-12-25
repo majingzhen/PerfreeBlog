@@ -20,13 +20,15 @@ import com.perfree.security.vo.LoginUserVO;
 import com.perfree.service.common.CommonService;
 import com.perfree.service.menu.MenuService;
 import com.perfree.service.user.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FastByteArrayOutputStream;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -39,58 +41,64 @@ import java.util.List;
  * @version 1.0.0
  * @create 2023/9/28 10:16
  **/
-@RestController
-@Tag(name = "系统基础接口")
-@RequestMapping("api")
+@Controller
+@Api(tags = "系统基础接口")
+@Mapping("api")
 public class SystemController {
-    @Resource
+    @Inject
     private UserService userService;
 
-    @Resource
+    @Inject
     private CaptchaCacheService captchaCacheService;
 
-    @Resource
+    @Inject
     private MenuService menuService;
 
-    @Resource
+    @Inject
     private CommonService commonService;
 
     @Value("${perfree.demoModel}")
     private Boolean demoModel;
 
-    @GetMapping("isDemoModel")
-    @Operation(summary = "获取是否为演示环境")
+    @Get
+    @Mapping("isDemoModel")
+    @ApiOperation(value = "获取是否为演示环境")
     public CommonResult<Boolean> isDemoModel(){
         return CommonResult.success(demoModel);
     }
 
 
-    @PostMapping("login")
-    @Operation(summary = "使用账号密码登录")
-    public CommonResult<LoginUserRespVO> login(@RequestBody @Valid LoginUserReqVO loginUserVO){
+    @Post
+    @Mapping("login")
+    @ApiOperation(value = "使用账号密码登录")
+    public CommonResult<LoginUserRespVO> login(@Body @Valid LoginUserReqVO loginUserVO){
         return CommonResult.success(userService.login(loginUserVO));
     }
 
-    @PostMapping("register")
-    @Operation(summary = "注册账号")
-    public CommonResult<UserRespVO> register(@RequestBody @Valid RegisterUserReqVO reqVO){
+    @Post
+    @Mapping("register")
+    @ApiOperation(value = "注册账号")
+    public CommonResult<UserRespVO> register(@Body @Valid RegisterUserReqVO reqVO){
         return CommonResult.success(UserConvert.INSTANCE.convertRespVO(userService.register(reqVO)));
     }
 
-    @PostMapping("findPasswordStep1")
-    @Operation(summary = "找回密码步骤1")
-    public CommonResult<Boolean> findPasswordStep1(@RequestBody @Valid FindPasswordStep1ReqVO reqVO){
+    @Post
+    @Mapping("findPasswordStep1")
+    @ApiOperation(value = "找回密码步骤1")
+    public CommonResult<Boolean> findPasswordStep1(@Body @Valid FindPasswordStep1ReqVO reqVO){
         return CommonResult.success(userService.findPasswordStep1(reqVO));
     }
 
-    @PostMapping("findPasswordStep2")
-    @Operation(summary = "找回密码步骤2")
-    public CommonResult<Boolean> findPasswordStep2(@RequestBody @Valid FindPasswordStep2ReqVO reqVO){
+    @Post
+    @Mapping("findPasswordStep2")
+    @ApiOperation(value = "找回密码步骤2")
+    public CommonResult<Boolean> findPasswordStep2(@Body @Valid FindPasswordStep2ReqVO reqVO){
         return CommonResult.success(userService.findPasswordStep2(reqVO));
     }
 
-    @PostMapping("captchaImage")
-    @Operation(summary = "获取验证码")
+    @Post
+    @Mapping("captchaImage")
+    @ApiOperation(value = "获取验证码")
     public CommonResult<CaptchaImageRespVO> captchaImage(){
         LineCaptcha lineCaptcha =  CaptchaUtil.createLineCaptcha(SystemConstants.CAPTCHA_IMAGE_WIDTH, SystemConstants.CAPTCHA_IMAGE_HEIGHT);
         lineCaptcha.setGenerator(new RandomGenerator(SystemConstants.CAPTCHA_RANDOM, SystemConstants.CAPTCHA_LENGTH));
@@ -111,8 +119,9 @@ public class SystemController {
         return CommonResult.success(captchaImageResp);
     }
 
-    @GetMapping("/getLoginUser")
-    @Operation(summary = "获取当前登录用户")
+    @Get
+    @Mapping("/getLoginUser")
+    @ApiOperation(value = "获取当前登录用户")
     public CommonResult<UserRespVO> getApiLoginUser() {
         LoginUserVO loginUser = SecurityFrameworkUtils.getLoginUser();
         if (null == loginUser) {
@@ -122,22 +131,25 @@ public class SystemController {
         return CommonResult.success(UserConvert.INSTANCE.convertRespVO(byId));
     }
 
-    @PostMapping("refreshToken")
-    @Operation(summary = "刷新token")
-    public CommonResult<LoginUserRespVO> refreshToken(@Valid @RequestBody RefreshTokenReqVO reqVO){
+    @Post
+    @Mapping("refreshToken")
+    @ApiOperation(value = "刷新token")
+    public CommonResult<LoginUserRespVO> refreshToken(@Valid @Body RefreshTokenReqVO reqVO){
         return CommonResult.success(userService.refreshToken(reqVO.getRefreshToken()));
     }
 
-    @GetMapping("menuList")
-    @Operation(summary = "获取所有菜单")
+    @Get
+    @Mapping("menuList")
+    @ApiOperation(value = "获取所有菜单")
     public CommonResult<List<MenuTreeListRespVO>> menuList(){
         List<MenuTreeListRespVO> menuTreeListRespVOS = menuService.menuFrontList();
         return CommonResult.success(menuTreeListRespVOS);
     }
 
-    @PostMapping("initWeb")
-    @Operation(summary = "初始化站点", hidden = true)
-    public CommonResult<Boolean> initWeb(@Valid @RequestBody InitWebReqVO reqVO){
+    @Post
+    @Mapping("initWeb")
+    @ApiOperation(value = "初始化站点", hidden = true)
+    public CommonResult<Boolean> initWeb(@Valid @Body InitWebReqVO reqVO){
         return CommonResult.success(commonService.initWeb(reqVO));
     }
 }

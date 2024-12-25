@@ -8,7 +8,9 @@ import com.perfree.convert.mailServer.MailServerConvert;
 import com.perfree.mapper.MailServerMapper;
 import com.perfree.model.MailServer;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.data.annotation.Tran;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -18,10 +20,10 @@ import java.util.List;
  * @description 邮箱服务 ServiceImpl
  * @author Perfree
  **/
-@Service
+@Component
 public class MailServerServiceImpl extends ServiceImpl<MailServerMapper, MailServer> implements MailServerService {
 
-    @Resource
+    @Db
     private MailServerMapper mailServerMapper;
 
 
@@ -31,7 +33,7 @@ public class MailServerServiceImpl extends ServiceImpl<MailServerMapper, MailSer
     }
 
     @Override
-    @Transactional
+    @Tran
     public MailServer add(MailServerAddReqVO mailServerAddReqVO) {
         MailServer mailServer = MailServerConvert.INSTANCE.convertAddReqVO(mailServerAddReqVO);
         mailServerMapper.insert(mailServer);
@@ -39,7 +41,7 @@ public class MailServerServiceImpl extends ServiceImpl<MailServerMapper, MailSer
     }
 
     @Override
-    @Transactional
+    @Tran
     public MailServer update(MailServerUpdateReqVO mailServerUpdateReqVO) {
         MailServer mailServer = MailServerConvert.INSTANCE.convertUpdateReqVO(mailServerUpdateReqVO);
         mailServerMapper.updateById(mailServer);
@@ -52,7 +54,7 @@ public class MailServerServiceImpl extends ServiceImpl<MailServerMapper, MailSer
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         mailServerMapper.deleteById(id);
         return true;

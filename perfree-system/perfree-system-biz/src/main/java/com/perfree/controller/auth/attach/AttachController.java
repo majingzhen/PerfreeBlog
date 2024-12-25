@@ -15,7 +15,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import java.util.List;
 
@@ -27,9 +27,9 @@ import static com.perfree.commons.common.CommonResult.success;
  * @version 1.0.0
  * @create 2023/1/15 10:16
  **/
-@RestController
+@Controller
 @Tag(name = "附件相关接口")
-@RequestMapping("api/auth/attach")
+@Mapping("api/auth/attach")
 public class AttachController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AttachController.class);
@@ -48,14 +48,14 @@ public class AttachController {
     @PostMapping("/page")
     @Operation(summary = "附件分页列表")
     @PreAuthorize("@ss.hasPermission('admin:attach:query')")
-    public CommonResult<PageResult<AttachRespVO>> page(@RequestBody AttachPageReqVO pageVO) {
+    public CommonResult<PageResult<AttachRespVO>> page(@Body AttachPageReqVO pageVO) {
         PageResult<Attach> rolePageResult = attachService.attachPage(pageVO);
         return success(AttachConvert.INSTANCE.convertPageResultVO(rolePageResult));
     }
 
     @GetMapping("/get")
     @Operation(summary = "获取附件")
-    public CommonResult<AttachRespVO> get(@RequestParam(value = "id") Integer id) {
+    public CommonResult<AttachRespVO> get(@Param(value = "id") Integer id) {
         Attach byId = attachService.getById(id);
         return success(AttachConvert.INSTANCE.convertRespVO(byId));
     }
@@ -64,7 +64,7 @@ public class AttachController {
     @Operation(summary = "修改附件")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:attach:update')")
-    public CommonResult<Boolean> update(@RequestBody AttachUpdateVO attachUpdateVO) {
+    public CommonResult<Boolean> update(@Body AttachUpdateVO attachUpdateVO) {
         return success(attachService.updateAttach(attachUpdateVO));
     }
 
@@ -73,7 +73,7 @@ public class AttachController {
     @Operation(summary = "删除附件")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:attach:delete')")
-    public CommonResult<Boolean> del(@RequestParam(value = "id") Integer id) {
+    public CommonResult<Boolean> del(@Param(value = "id") Integer id) {
         return success(attachService.del(id));
     }
 
@@ -87,7 +87,7 @@ public class AttachController {
     @PostMapping("/uploadAttachByUrl")
     @Operation(summary = "通过url下载并上传附件")
     @DemoMode
-    public CommonResult<AttachByUrlRespVO> uploadAttachByUrl(@Valid @RequestBody AttachUploadByUrlVO attachUploadByUrlVO) {
+    public CommonResult<AttachByUrlRespVO> uploadAttachByUrl(@Valid @Body AttachUploadByUrlVO attachUploadByUrlVO) {
         Attach attach = attachService.uploadAttachByUrl(attachUploadByUrlVO.getUrl());
         AttachByUrlRespVO attachByUrlRespVO = AttachConvert.INSTANCE.convertByUrlRespVO(attach);
         attachByUrlRespVO.setOriginalURL(attachUploadByUrlVO.getUrl());

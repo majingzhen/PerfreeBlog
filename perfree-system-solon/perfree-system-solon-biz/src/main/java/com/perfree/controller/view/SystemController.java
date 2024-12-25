@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Param;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,7 @@ import java.io.Writer;
 @Controller
 public class SystemController extends BaseViewController {
 
-    @Resource
+    @Inject
     private RssService rssService;
 
     @GetMapping("/")
@@ -52,7 +54,7 @@ public class SystemController extends BaseViewController {
 
     @GetMapping("/logout")
     @Operation(summary = "退出登录")
-    public String logout(HttpServletRequest request, @RequestParam(value = "redirectPath", required = false) String redirectPath) {
+    public String logout(HttpServletRequest request, @Param(value = "redirectPath", required = false) String redirectPath) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();

@@ -8,7 +8,7 @@ import com.perfree.convert.journalAttach.JournalAttachConvert;
 import com.perfree.mapper.JournalAttachMapper;
 import com.perfree.model.JournalAttach;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class JournalAttachServiceImpl extends ServiceImpl<JournalAttachMapper, JournalAttach> implements JournalAttachService {
 
     @Resource

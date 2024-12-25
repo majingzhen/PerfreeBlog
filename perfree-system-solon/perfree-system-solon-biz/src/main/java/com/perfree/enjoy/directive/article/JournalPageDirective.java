@@ -13,7 +13,7 @@ import com.perfree.controller.auth.journal.vo.JournalPageReqVO;
 import com.perfree.controller.auth.journal.vo.JournalRespVO;
 import com.perfree.service.article.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 @TemplateDirective("journalPage")
 @Component
 public class JournalPageDirective extends BaseDirective {

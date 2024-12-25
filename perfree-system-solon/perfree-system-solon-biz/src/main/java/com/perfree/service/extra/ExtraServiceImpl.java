@@ -12,7 +12,9 @@ import com.perfree.enums.ErrorCode;
 import com.perfree.mapper.ExtraMapper;
 import com.perfree.model.Extra;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.data.annotation.Tran;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -23,10 +25,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class ExtraServiceImpl extends ServiceImpl<ExtraMapper, Extra> implements ExtraService {
 
-    @Resource
+    @Db
     private ExtraMapper extraMapper;
 
     @Override
@@ -45,7 +47,7 @@ public class ExtraServiceImpl extends ServiceImpl<ExtraMapper, Extra> implements
     }
 
     @Override
-    @Transactional
+    @Tran
     public Extra add(ExtraAddReqVO extraAddReqVO) {
         Extra byKey = extraMapper.getByKey(extraAddReqVO.getExtraKey());
         if (null != byKey) {
@@ -57,7 +59,7 @@ public class ExtraServiceImpl extends ServiceImpl<ExtraMapper, Extra> implements
     }
 
     @Override
-    @Transactional
+    @Tran
     public Extra updateExtra(ExtraUpdateReqVO extraUpdateReqVO) {
         Extra byKey = extraMapper.getByKey(extraUpdateReqVO.getExtraKey());
         if (null != byKey && !byKey.getId().equals(extraUpdateReqVO.getId())) {
@@ -69,7 +71,7 @@ public class ExtraServiceImpl extends ServiceImpl<ExtraMapper, Extra> implements
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         extraMapper.deleteById(id);
         return true;

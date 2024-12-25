@@ -13,7 +13,7 @@ import com.perfree.controller.auth.category.vo.CategoryPageReqVO;
 import com.perfree.controller.auth.category.vo.CategoryRespVO;
 import com.perfree.service.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 @TemplateDirective("categoriesPage")
 @Component

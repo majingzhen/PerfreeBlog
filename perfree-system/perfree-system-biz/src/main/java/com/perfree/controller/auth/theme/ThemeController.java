@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,9 +25,9 @@ import java.util.List;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
+@Controller
 @Tag(name = "主题相关接口")
-@RequestMapping("api/auth/theme")
+@Mapping("api/auth/theme")
 public class ThemeController {
 
 
@@ -64,7 +64,7 @@ public class ThemeController {
     @PostMapping("swatchTheme")
     @Operation(summary = "切换主题")
     @PreAuthorize("@ss.hasPermission('admin:theme:swatchTheme')")
-    public CommonResult<Boolean> swatchTheme(@RequestParam(value = "themePath") String themePath) {
+    public CommonResult<Boolean> swatchTheme(@Param(value = "themePath") String themePath) {
         return success(themeManager.swatchTheme(themePath));
     }
 
@@ -72,7 +72,7 @@ public class ThemeController {
     @DeleteMapping("unInstallTheme")
     @Operation(summary = "卸载主题")
     @PreAuthorize("@ss.hasPermission('admin:theme:uninstall')")
-    public CommonResult<Boolean> unInstallTheme(@RequestParam(value = "themePath") String themePath) {
+    public CommonResult<Boolean> unInstallTheme(@Param(value = "themePath") String themePath) {
         Boolean result = themeManager.unInstallTheme(themePath);
         if (result) {
             optionService.removeOptionByIdentification(SystemConstants.THEME_OPTION_IDENT_PRE  + themePath);
@@ -88,14 +88,14 @@ public class ThemeController {
 
     @GetMapping("getThemeFilesByName")
     @Operation(summary = "获取主题文件列表")
-    public CommonResult<List<ThemeFile>> getThemeFilesByName(@RequestParam(value = "themePath") String themePath) {
+    public CommonResult<List<ThemeFile>> getThemeFilesByName(@Param(value = "themePath") String themePath) {
         return success(themeManager.getThemeFilesByName(themePath));
     }
 
     @PostMapping("getThemeFileContent")
     @Operation(summary = "获取主题文件内容")
     @ResponseBody
-    public CommonResult<String> getThemeFileContent(@RequestBody ThemeFileContentReqVO themeFileContentReqVO) {
+    public CommonResult<String> getThemeFileContent(@Body ThemeFileContentReqVO themeFileContentReqVO) {
         return success(themeManager.getThemeFileContent(themeFileContentReqVO.getPath(), themeFileContentReqVO.getThemePath()));
     }
 
@@ -103,7 +103,7 @@ public class ThemeController {
     @Operation(summary = "保存主题文件内容")
     @ResponseBody
     @PreAuthorize("@ss.hasPermission('admin:theme:edit')")
-    public CommonResult<Boolean> saveThemeFileContent(@RequestBody ThemeSaveFileContentReqVO themeSaveFileContentReqVO) {
+    public CommonResult<Boolean> saveThemeFileContent(@Body ThemeSaveFileContentReqVO themeSaveFileContentReqVO) {
         return success(themeManager.saveThemeFileContent(themeSaveFileContentReqVO.getPath(),
                 themeSaveFileContentReqVO.getThemePath(), themeSaveFileContentReqVO.getContent()));
     }

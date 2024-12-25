@@ -1,6 +1,8 @@
 package com.perfree.service.option;
 
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import com.perfree.cache.OptionCacheService;
 import com.perfree.commons.constant.SystemConstants;
 import com.perfree.commons.exception.ServiceException;
@@ -17,8 +19,11 @@ import com.perfree.theme.ThemeManager;
 import com.perfree.theme.commons.ThemeInfo;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.data.annotation.Tran;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -32,23 +37,23 @@ import java.util.List;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class OptionServiceImpl extends ServiceImpl<OptionMapper, Option> implements OptionService {
 
     @Value("${version}")
     private String version;
 
-    @Resource
+    @Db
     private OptionMapper optionMapper;
 
-    @Resource
+    @Inject
     private OptionCacheService optionCacheService;
 
-    @Resource
+    @Inject
     private ThemeManager themeManager;
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updateOptionByKeyAndIdentification(String key,String identification, String value) {
         Option option = optionMapper.getByKeyAndIdentification(key, identification);
         if (null == option) {
@@ -61,7 +66,7 @@ public class OptionServiceImpl extends ServiceImpl<OptionMapper, Option> impleme
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean saveOptionList(OptionAddListReqVO optionAddListReqVO) {
         if (optionAddListReqVO.getOptions().isEmpty()) {
             return true;
@@ -99,7 +104,7 @@ public class OptionServiceImpl extends ServiceImpl<OptionMapper, Option> impleme
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean saveCurrentThemeSetting(OptionAddListReqVO optionAddListReqVO) {
         ThemeInfo themeInfo = themeManager.getThemeInfo(null);
         if (null == themeInfo) {
@@ -121,7 +126,7 @@ public class OptionServiceImpl extends ServiceImpl<OptionMapper, Option> impleme
     }
 
     @Override
-    @Transactional
+    @Tran
     public void removeOptionByIdentification(String identification) {
         List<Option> optionList = optionMapper.getSettingValueByIdentification(identification);
         if (null == optionList || optionList.isEmpty()) {

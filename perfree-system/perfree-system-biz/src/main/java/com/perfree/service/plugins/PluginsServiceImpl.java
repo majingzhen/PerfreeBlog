@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,7 +46,7 @@ import java.util.List;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> implements PluginsService {
     private final static Logger LOGGER = LoggerFactory.getLogger(PluginsServiceImpl.class);
 
@@ -178,7 +178,7 @@ public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public void initPlugins() {
         List<Plugins> pluginsList = pluginsMapper.getAllEnablePlugins();
         for (Plugins plugins : pluginsList) {
@@ -197,7 +197,7 @@ public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean disablePlugin(String pluginId) {
         Plugins plugins = pluginsMapper.getByPluginId(pluginId);
         if (null != PluginInfoHolder.getPluginInfo(plugins.getPluginId())) {
@@ -209,7 +209,7 @@ public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> impl
     }
 
     @Override
-    @Transactional(noRollbackFor = ServiceException.class)
+    @Tran(noRollbackFor = ServiceException.class)
     public Boolean enablePlugin(String pluginId) {
         Plugins plugins = pluginsMapper.getByPluginId(pluginId);
         File pluginDirFile = new File(SystemConstants.PLUGINS_DIR + SystemConstants.FILE_SEPARATOR + plugins.getPluginId());
@@ -229,7 +229,7 @@ public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> impl
     }
 
     @Override
-    @Transactional(noRollbackFor = ServiceException.class)
+    @Tran(noRollbackFor = ServiceException.class)
     public Boolean unInstallPlugin(String pluginId) {
         Plugins plugins = pluginsMapper.getByPluginId(pluginId);
         if (null != PluginInfoHolder.getPluginInfo(plugins.getPluginId())) {

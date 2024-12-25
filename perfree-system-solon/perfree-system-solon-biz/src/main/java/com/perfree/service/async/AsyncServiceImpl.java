@@ -15,28 +15,30 @@ import com.perfree.mapper.ArticleMapper;
 import com.perfree.mapper.CommentMapper;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Inject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
 import java.util.HashMap;
 
-@Service
+@Component
 public class AsyncServiceImpl implements AsyncService{
 
     @Value("${server.port}")
     private int serverPort;
 
-    @Resource
+    @Db
     private CommentMapper commentMapper;
 
-    @Resource
+    @Db
     private ArticleMapper articleMapper;
 
-    @Resource
+    @Inject
     private MailService mailService;
 
-    @Resource
+    @Inject
     private OptionCacheService optionCacheService;
 
     @Override

@@ -17,7 +17,7 @@ import com.perfree.service.user.UserService;
 import com.perfree.system.api.option.dto.OptionDTO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import oshi.SystemInfo;
 import oshi.software.os.FileSystem;
 import oshi.software.os.OSFileStore;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-@Service
+@Component
 public class AdminHomeServiceImpl implements AdminHomeService {
 
     @Value("${version}")

@@ -7,7 +7,7 @@ import com.jfinal.template.stat.Scope;
 import com.perfree.commons.common.RelativeDateFormat;
 import com.perfree.commons.directive.BaseDirective;
 import com.perfree.commons.directive.TemplateDirective;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 import java.util.Date;
 

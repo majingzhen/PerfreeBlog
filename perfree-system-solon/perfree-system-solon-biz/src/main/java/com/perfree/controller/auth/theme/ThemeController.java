@@ -13,11 +13,15 @@ import com.perfree.theme.ThemeManager;
 import com.perfree.theme.commons.ThemeFile;
 import com.perfree.theme.commons.ThemeInfo;
 import com.perfree.theme.commons.ThemeSetting;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import org.noear.solon.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,26 +29,28 @@ import java.util.List;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
-@Tag(name = "主题相关接口")
-@RequestMapping("api/auth/theme")
+@Controller
+@Api(tags = "主题相关接口")
+@Mapping("api/auth/theme")
 public class ThemeController {
 
 
-    @Resource
+    @Inject
     private ThemeManager themeManager;
 
-    @Resource
+    @Inject
     private OptionService optionService;
 
-    @GetMapping("allTheme")
-    @Operation(summary = "获取所有主题")
+    @Get
+    @Mapping("allTheme")
+    @ApiOperation(value = "获取所有主题")
     public CommonResult<List<ThemeInfo>> allTheme() {
         return CommonResult.success(themeManager.getAllTheme());
     }
 
-    @PostMapping("installTheme")
-    @Operation(summary = "安装主题")
+    @Post
+    @Mapping("installTheme")
+    @ApiOperation(value = "安装主题")
     @PreAuthorize("@ss.hasPermission('admin:theme:install')")
     public CommonResult<ThemeInfo> installTheme(InstallThemeReqVO installThemeReqVO) throws IOException {
         String multiFileName = installThemeReqVO.getFile().getOriginalFilename();
@@ -61,16 +67,18 @@ public class ThemeController {
     }
 
 
-    @PostMapping("swatchTheme")
-    @Operation(summary = "切换主题")
+    @Post
+    @Mapping("swatchTheme")
+    @ApiOperation(value = "切换主题")
     @PreAuthorize("@ss.hasPermission('admin:theme:swatchTheme')")
     public CommonResult<Boolean> swatchTheme(@RequestParam(value = "themePath") String themePath) {
         return success(themeManager.swatchTheme(themePath));
     }
 
 
-    @DeleteMapping("unInstallTheme")
-    @Operation(summary = "卸载主题")
+    @Delete
+    @Mapping("unInstallTheme")
+    @ApiOperation(value = "卸载主题")
     @PreAuthorize("@ss.hasPermission('admin:theme:uninstall')")
     public CommonResult<Boolean> unInstallTheme(@RequestParam(value = "themePath") String themePath) {
         Boolean result = themeManager.unInstallTheme(themePath);
@@ -80,36 +88,41 @@ public class ThemeController {
         return success(result);
     }
 
-    @GetMapping("getCurrentThemeSetting")
-    @Operation(summary = "获取当前启用主题的配置信息")
+    @Get
+    @Mapping("getCurrentThemeSetting")
+    @ApiOperation(value = "获取当前启用主题的配置信息")
     public CommonResult<ThemeSetting> getCurrentThemeSetting() {
         return success(themeManager.getCurrentThemeSetting());
     }
 
-    @GetMapping("getThemeFilesByName")
-    @Operation(summary = "获取主题文件列表")
+    @Get
+    @Mapping("getThemeFilesByName")
+    @ApiOperation(value = "获取主题文件列表")
     public CommonResult<List<ThemeFile>> getThemeFilesByName(@RequestParam(value = "themePath") String themePath) {
         return success(themeManager.getThemeFilesByName(themePath));
     }
 
-    @PostMapping("getThemeFileContent")
-    @Operation(summary = "获取主题文件内容")
+    @Post
+    @Mapping("getThemeFileContent")
+    @ApiOperation(value = "获取主题文件内容")
     @ResponseBody
-    public CommonResult<String> getThemeFileContent(@RequestBody ThemeFileContentReqVO themeFileContentReqVO) {
+    public CommonResult<String> getThemeFileContent(@Body ThemeFileContentReqVO themeFileContentReqVO) {
         return success(themeManager.getThemeFileContent(themeFileContentReqVO.getPath(), themeFileContentReqVO.getThemePath()));
     }
 
-    @PostMapping("saveThemeFileContent")
-    @Operation(summary = "保存主题文件内容")
+    @Post
+    @Mapping("saveThemeFileContent")
+    @ApiOperation(value = "保存主题文件内容")
     @ResponseBody
     @PreAuthorize("@ss.hasPermission('admin:theme:edit')")
-    public CommonResult<Boolean> saveThemeFileContent(@RequestBody ThemeSaveFileContentReqVO themeSaveFileContentReqVO) {
+    public CommonResult<Boolean> saveThemeFileContent(@Body ThemeSaveFileContentReqVO themeSaveFileContentReqVO) {
         return success(themeManager.saveThemeFileContent(themeSaveFileContentReqVO.getPath(),
                 themeSaveFileContentReqVO.getThemePath(), themeSaveFileContentReqVO.getContent()));
     }
 
-    @GetMapping("getThemePageTpl")
-    @Operation(summary = "获取当前启用主题中的模板列表")
+    @Get
+    @Mapping("getThemePageTpl")
+    @ApiOperation(value = "获取当前启用主题中的模板列表")
     public CommonResult<List<String>> getThemePageTpl() {
         return success(themeManager.getThemePageTpl());
     }

@@ -9,13 +9,13 @@ import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
 import java.io.File;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-@Service
+@Component
 public class PluginChangeCacheService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PluginChangeCacheService.class);

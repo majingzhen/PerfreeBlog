@@ -27,11 +27,14 @@ import lombok.SneakyThrows;
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
+import org.apache.ibatis.solon.annotation.Db;
 import org.jetbrains.annotations.NotNull;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.data.annotation.Tran;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,29 +49,29 @@ import java.util.List;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> implements PluginsService {
     private final static Logger LOGGER = LoggerFactory.getLogger(PluginsServiceImpl.class);
 
     @Value("${perfree.autoLoadDevPlugin}")
     private Boolean autoLoadDevPlugin;
 
-    @Resource
+    @Db
     private PluginsMapper pluginsMapper;
 
-    @Resource
+    @Db
     private PluginManager pluginManager;
 
-    @Resource
+    @Inject
     private OptionService optionService;
 
-    @Resource
+    @Inject
     private PluginDevManager pluginDevManager;
 
-    @Resource
+    @Db
     private MenuMapper menuMapper;
 
-    @Resource
+    @Inject
     private PluginChangeCacheService pluginChangeCacheService;
 
 
@@ -178,7 +181,7 @@ public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public void initPlugins() {
         List<Plugins> pluginsList = pluginsMapper.getAllEnablePlugins();
         for (Plugins plugins : pluginsList) {
@@ -197,7 +200,7 @@ public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean disablePlugin(String pluginId) {
         Plugins plugins = pluginsMapper.getByPluginId(pluginId);
         if (null != PluginInfoHolder.getPluginInfo(plugins.getPluginId())) {
@@ -209,7 +212,9 @@ public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> impl
     }
 
     @Override
-    @Transactional(noRollbackFor = ServiceException.class)
+    // TODO 需要处理不回滚异常
+    //@Tran(noRollbackFor = ServiceException.class)
+    @Tran
     public Boolean enablePlugin(String pluginId) {
         Plugins plugins = pluginsMapper.getByPluginId(pluginId);
         File pluginDirFile = new File(SystemConstants.PLUGINS_DIR + SystemConstants.FILE_SEPARATOR + plugins.getPluginId());
@@ -229,7 +234,9 @@ public class PluginsServiceImpl extends ServiceImpl<PluginsMapper, Plugins> impl
     }
 
     @Override
-    @Transactional(noRollbackFor = ServiceException.class)
+    // TODO 需要处理不回滚异常
+    //@Tran(noRollbackFor = ServiceException.class)
+    @Tran
     public Boolean unInstallPlugin(String pluginId) {
         Plugins plugins = pluginsMapper.getByPluginId(pluginId);
         if (null != PluginInfoHolder.getPluginInfo(plugins.getPluginId())) {

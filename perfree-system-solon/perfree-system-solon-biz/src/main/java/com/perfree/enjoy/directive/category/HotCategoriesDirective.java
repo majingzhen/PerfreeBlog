@@ -10,7 +10,7 @@ import com.perfree.controller.auth.category.vo.CategoryRespVO;
 import com.perfree.controller.auth.tag.vo.TagRespVO;
 import com.perfree.service.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 import java.util.HashMap;
 import java.util.List;

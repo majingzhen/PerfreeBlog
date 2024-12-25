@@ -4,7 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.perfree.system.api.option.dto.OptionDTO;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @description 配置缓存相关
  * @date 15:35 2023/9/28
  */
-@Service
+@Component
 public class OptionCacheService {
     private final Cache<String, OptionDTO> optionCache;
 

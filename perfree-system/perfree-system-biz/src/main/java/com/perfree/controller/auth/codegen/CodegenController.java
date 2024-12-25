@@ -18,7 +18,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import java.util.List;
 
@@ -30,9 +30,9 @@ import static com.perfree.commons.common.CommonResult.success;
  * @version 1.0.0
  * @create 2023/1/15 10:16
  **/
-@RestController
+@Controller
 @Tag(name = "代码生成相关接口")
-@RequestMapping("api/auth/codegen")
+@Mapping("api/auth/codegen")
 public class CodegenController {
 
     @Resource
@@ -40,59 +40,59 @@ public class CodegenController {
 
     @PostMapping("/getTableList")
     @Operation(summary = "获取数据库所有的表")
-    public CommonResult<List<TableInfo>> getTableList(@RequestBody CodegenTableListReqVO codegenTableListReqVO) {
+    public CommonResult<List<TableInfo>> getTableList(@Body CodegenTableListReqVO codegenTableListReqVO) {
         return success(codegenService.getTableList(codegenTableListReqVO));
     }
 
     @Operation(summary = "基于数据库的表结构，创建代码生成器的表和字段定义")
     @PostMapping("/create-list")
-    public CommonResult<String> createCodegenList(@Valid @RequestBody CodegenCreateListReqVO reqVO) {
+    public CommonResult<String> createCodegenList(@Valid @Body CodegenCreateListReqVO reqVO) {
         codegenService.createCodegenList(reqVO);
         return success("操作成功");
     }
 
     @PostMapping("/codegenTablePage")
     @Operation(summary = "代码生成数据库表分页列表")
-    public CommonResult<PageResult<CodegenTableRespVO>> codegenTablePage(@RequestBody CodegenTablePageReqVO pageVO) {
+    public CommonResult<PageResult<CodegenTableRespVO>> codegenTablePage(@Body CodegenTablePageReqVO pageVO) {
         PageResult<CodegenTable> codegenTablePage = codegenService.codegenTablePage(pageVO);
         return success(CodegenConvert.INSTANCE.convertPageResultVO(codegenTablePage));
     }
 
     @GetMapping("/getCodegenInfoByTableId")
     @Operation(summary = "根据表id获取代码生成信息")
-    public CommonResult<CodegenInfoRespVO> getCodegenInfoByTableId(@RequestParam(value = "tableId") Integer tableId) {
+    public CommonResult<CodegenInfoRespVO> getCodegenInfoByTableId(@Param(value = "tableId") Integer tableId) {
         return success(codegenService.getCodegenInfoByTableId(tableId));
     }
 
     @PostMapping("/saveConfig")
     @Operation(summary = "保存代码生成配置")
-    public CommonResult<Boolean> saveConfig(@RequestBody CodegenInfoReqVO codegenInfoReqVO) {
+    public CommonResult<Boolean> saveConfig(@Body CodegenInfoReqVO codegenInfoReqVO) {
         return success(codegenService.saveConfig(codegenInfoReqVO));
     }
 
     @GetMapping("/getCodeFileList")
     @Operation(summary = "获取生成文件列表")
-    public CommonResult<List<CodegenFileListRespVO>> getCodeFileList(@RequestParam(value = "tableId") Integer tableId) {
+    public CommonResult<List<CodegenFileListRespVO>> getCodeFileList(@Param(value = "tableId") Integer tableId) {
         return success(codegenService.getCodeFileList(tableId));
     }
 
     @PostMapping("/getCodeFileContent")
     @Operation(summary = "获取代码文件内容")
     @ResponseBody
-    public CommonResult<String> getCodeFileContent(@RequestBody CodeFileContentReqVO codeFileContentReqVO) {
+    public CommonResult<String> getCodeFileContent(@Body CodeFileContentReqVO codeFileContentReqVO) {
         return success(codegenService.getCodeFileContent(codeFileContentReqVO));
     }
 
     @DeleteMapping("/del")
     @Operation(summary = "删除生成的数据")
     @DemoMode
-    public CommonResult<Boolean> del(@RequestParam(value = "id") Integer id) {
+    public CommonResult<Boolean> del(@Param(value = "id") Integer id) {
         return success(codegenService.del(id));
     }
 
     @GetMapping("/download")
     @Operation(summary = "下载")
-    public void download(@RequestParam(value = "id") Integer id, HttpServletResponse response) {
+    public void download(@Param(value = "id") Integer id, HttpServletResponse response) {
         codegenService.download(id, response);
     }
 

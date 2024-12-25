@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 @Tag(name = "系统配置接口")
-@RequestMapping("api/option")
+@Mapping("api/option")
 public class OptionController {
 
     @Resource
@@ -27,7 +27,7 @@ public class OptionController {
 
     @GetMapping("getOptionByKeysAndIdentification")
     @Operation(summary = "根据key和标识获取配置项")
-    public CommonResult<List<OptionRespVO>> getOptionByNoAuth(@RequestParam("keys") String[] keys, @RequestParam("identification") String identification){
+    public CommonResult<List<OptionRespVO>> getOptionByNoAuth(@Param("keys") String[] keys, @Param("identification") String identification){
         List<OptionDTO> optionDTOList = new ArrayList<>();
         for (String key : keys) {
             OptionDTO openOption = optionCacheService.getOption(key, identification);

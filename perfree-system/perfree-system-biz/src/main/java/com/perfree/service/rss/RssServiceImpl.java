@@ -19,13 +19,13 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Service
+@Component
 public class RssServiceImpl implements RssService{
     private final Logger logger = LoggerFactory.getLogger(RssServiceImpl.class);
     private static final String RSS_MODE_FULL = "0";

@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.noear</groupId>
         <artifactId>solon-parent</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.5</version>
     </parent>
 
     <groupId>com.perfree</groupId>
@@ -16,12 +16,13 @@
     <packaging>pom</packaging>
     <url>https://github.com/perfree/xxx</url>
     <modules>
-        <module>perfree-core</module>
+<!--        <module>perfree-core</module>-->
         <module>perfree-core-solon</module>
-        <module>perfree-plugins</module>
-        <module>perfree-system</module>
+<!--        <module>perfree-plugins</module>-->
+        <module>perfree-plugins-solon</module>
+<!--        <module>perfree-system</module>-->
         <module>perfree-system-solon</module>
-        <module>perfree-server</module>
+<!--        <module>perfree-server</module>-->
         <module>perfree-server-solon</module>
     </modules>
 
@@ -37,7 +38,7 @@
 
         <solon.version>3.0.4</solon.version>
         <spring.boot.version>3.2.1</spring.boot.version>
-        <mybatis-plus.version>3.5.6</mybatis-plus.version>
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
         <lombok.version>1.18.30</lombok.version>
         <knife4j.version>4.3.0</knife4j.version>
         <jwt.version>0.11.5</jwt.version>
@@ -58,6 +59,20 @@
                 <artifactId>solon-openapi2-knife4j</artifactId>
                 <version>${solon.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-solon-plugin</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -79,11 +94,11 @@
             </dependency>
 
 
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.baomidou</groupId>-->
+<!--                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>-->
+<!--                <version>${mybatis-plus.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>

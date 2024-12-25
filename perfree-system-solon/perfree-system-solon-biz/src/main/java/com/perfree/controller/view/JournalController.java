@@ -5,6 +5,7 @@ import com.perfree.commons.annotation.FrontViewNodeRender;
 import com.perfree.commons.constant.SystemConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.noear.solon.annotation.Mapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class JournalController extends BaseViewController {
 
-    @RequestMapping(value = {"/journal/{pageIndex}",  "journal"})
+    @Mapping("/journal/{pageIndex}")
     @FrontViewNodeRender
     @Operation(summary = "动态列表页")
     public String journalPage(@PathVariable(value = "pageIndex", required = false) String pageIndex, Model model) {
@@ -22,4 +23,13 @@ public class JournalController extends BaseViewController {
         model.addAttribute("pageIndex", null == pageIndex ? 1 : pageIndex);
         return themeView("journalList.html");
     }
+    @Mapping( "journal")
+    @FrontViewNodeRender
+    @Operation(summary = "动态列表页")
+    public String journalPageNoPathPar(@PathVariable(value = "pageIndex", required = false) String pageIndex, Model model) {
+        model.addAttribute("url", SystemConstants.URL_JOURNAL_LIST);
+        model.addAttribute("pageIndex", null == pageIndex ? 1 : pageIndex);
+        return themeView("journalList.html");
+    }
+
 }

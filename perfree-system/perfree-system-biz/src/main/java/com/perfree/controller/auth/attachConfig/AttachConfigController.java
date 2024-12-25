@@ -13,15 +13,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import java.util.List;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
+@Controller
 @Tag(name = "附件服务器配置相关接口")
-@RequestMapping("api/auth/attachConfig")
+@Mapping("api/auth/attachConfig")
 public class AttachConfigController {
 
     @Resource
@@ -37,7 +37,7 @@ public class AttachConfigController {
     @PostMapping("/page")
     @Operation(summary = "配置分页列表")
     @PreAuthorize("@ss.hasPermission('admin:attachConfig:query')")
-    public CommonResult<PageResult<AttachConfigRespVO>> page(@RequestBody AttachConfigPageReqVO pageVO) {
+    public CommonResult<PageResult<AttachConfigRespVO>> page(@Body AttachConfigPageReqVO pageVO) {
         PageResult<AttachConfig> attachPage = attachConfigService.attachConfigPage(pageVO);
         return success(AttachConfigConvert.INSTANCE.convertPageResultVO(attachPage));
     }
@@ -46,7 +46,7 @@ public class AttachConfigController {
     @Operation(summary = "新增配置")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:attachConfig:create')")
-    public CommonResult<AttachConfigRespVO> add(@RequestBody @Valid AttachConfigCreateVO attachConfigCreateVO) {
+    public CommonResult<AttachConfigRespVO> add(@Body @Valid AttachConfigCreateVO attachConfigCreateVO) {
         AttachConfig attachConfig = attachConfigService.add(attachConfigCreateVO);
         return CommonResult.success(AttachConfigConvert.INSTANCE.convertRespVO(attachConfig));
     }
@@ -56,7 +56,7 @@ public class AttachConfigController {
     @Operation(summary = "修改配置")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:attachConfig:update')")
-    public CommonResult<Boolean> update(@RequestBody @Valid AttachConfigUpdateVO attachConfigUpdateVO) {
+    public CommonResult<Boolean> update(@Body @Valid AttachConfigUpdateVO attachConfigUpdateVO) {
         return CommonResult.success(attachConfigService.updateAttachConfig(attachConfigUpdateVO));
     }
 
@@ -64,14 +64,14 @@ public class AttachConfigController {
     @Operation(summary = "修改默认配置")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:attachConfig:master')")
-    public CommonResult<Boolean> updateMaster(@RequestBody @Valid AttachConfigUpdateMasterVO attachConfigUpdateMasterVO) {
+    public CommonResult<Boolean> updateMaster(@Body @Valid AttachConfigUpdateMasterVO attachConfigUpdateMasterVO) {
         return CommonResult.success(attachConfigService.updateMaster(attachConfigUpdateMasterVO));
     }
 
 
     @GetMapping("/get")
     @Operation(summary = "根据id获取配置")
-    public CommonResult<AttachConfigRespVO> get(@RequestParam(value = "id") Integer id) {
+    public CommonResult<AttachConfigRespVO> get(@Param(value = "id") Integer id) {
         AttachConfig attachConfig = attachConfigService.getById(id);
         return CommonResult.success(AttachConfigConvert.INSTANCE.convertRespVO(attachConfig));
     }
@@ -80,7 +80,7 @@ public class AttachConfigController {
     @Operation(summary = "根据id删除配置")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:attachConfig:delete')")
-    public CommonResult<Boolean> del(@RequestParam(value = "id") Integer id) {
+    public CommonResult<Boolean> del(@Param(value = "id") Integer id) {
         return CommonResult.success(attachConfigService.del(id));
     }
 }

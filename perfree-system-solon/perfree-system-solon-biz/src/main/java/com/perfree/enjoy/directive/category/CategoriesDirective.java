@@ -11,7 +11,7 @@ import com.perfree.controller.auth.category.vo.CategoryListReqVO;
 import com.perfree.controller.auth.category.vo.CategoryTreeRespVO;
 import com.perfree.service.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 import java.util.List;
 

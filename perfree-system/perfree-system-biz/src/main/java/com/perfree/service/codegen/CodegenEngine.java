@@ -13,14 +13,14 @@ import com.perfree.constant.CodegenConstant;
 import com.perfree.model.CodegenColumn;
 import com.perfree.model.CodegenTable;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class CodegenEngine {
 
     private static final Map<String, String> BASE_SERVER_TEMPLATES = MapUtil.<String, String>builder(new LinkedHashMap<>())

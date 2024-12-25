@@ -6,9 +6,9 @@ import com.perfree.service.user.UserService;
 import com.perfree.system.api.user.UserApi;
 import com.perfree.system.api.user.dto.UserRespDTO;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
-@Service
+@Component
 public class UserApiImpl implements UserApi {
 
     @Resource

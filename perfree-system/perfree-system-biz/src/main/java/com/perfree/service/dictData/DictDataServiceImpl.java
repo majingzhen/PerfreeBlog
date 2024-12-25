@@ -13,7 +13,7 @@ import com.perfree.mapper.DictDataMapper;
 import com.perfree.model.DictData;
 import com.perfree.system.api.dictData.dto.DictDataDTO;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.List;
  * @description 数据字典值 ServiceImpl
  * @author Perfree
  **/
-@Service
+@Component
 public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> implements DictDataService {
 
     @Resource
@@ -39,7 +39,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
     }
 
     @Override
-    @Transactional
+    @Tran
     public DictData add(DictDataAddReqVO dictDataAddReqVO) {
         DictData queryDictData = dictDataMapper.queryByDictType(dictDataAddReqVO.getDictType());
         if (null != queryDictData) {
@@ -52,7 +52,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
     }
 
     @Override
-    @Transactional
+    @Tran
     public DictData update(DictDataUpdateReqVO dictDataUpdateReqVO) {
         DictData queryDictData = dictDataMapper.queryByDictType(dictDataUpdateReqVO.getDictType());
         if (null != queryDictData && !queryDictData.getId().equals(dictDataUpdateReqVO.getId())) {
@@ -70,7 +70,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         DictData dictData = dictDataMapper.selectById(id);
         dictDataMapper.deleteById(id);

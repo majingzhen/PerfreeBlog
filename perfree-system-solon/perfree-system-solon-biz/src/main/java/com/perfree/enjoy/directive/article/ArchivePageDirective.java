@@ -12,7 +12,7 @@ import com.perfree.controller.common.article.vo.ArchivePageReqVO;
 import com.perfree.controller.common.article.vo.ArchiveRespVO;
 import com.perfree.service.article.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 @TemplateDirective("archivePage")
 @Component

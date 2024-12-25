@@ -6,12 +6,13 @@ import com.perfree.service.mailLog.MailLogService;
 import com.perfree.system.api.mailLog.MailLogApi;
 import com.perfree.system.api.mailLog.dto.MailLogDTO;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Inject;
 
-@Service
+@Component
 public class MailLogApiImpl implements MailLogApi {
 
-    @Resource
+    @Inject
     private MailLogService mailLogService;
 
     @Override

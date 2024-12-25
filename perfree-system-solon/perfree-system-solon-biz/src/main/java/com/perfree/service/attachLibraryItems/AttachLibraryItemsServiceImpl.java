@@ -12,7 +12,10 @@ import com.perfree.convert.attachLibraryItems.AttachLibraryItemsConvert;
 import com.perfree.mapper.AttachLibraryItemsMapper;
 import com.perfree.model.AttachLibraryItems;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.annotation.Delete;
+import org.noear.solon.data.annotation.Tran;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -21,10 +24,10 @@ import java.util.List;
  * @description 附件库数据 ServiceImpl
  * @author Perfree
  **/
-@Service
+@Component
 public class AttachLibraryItemsServiceImpl extends ServiceImpl<AttachLibraryItemsMapper, AttachLibraryItems> implements AttachLibraryItemsService {
 
-    @Resource
+    @Db
     private AttachLibraryItemsMapper attachLibraryItemsMapper;
 
 
@@ -39,7 +42,7 @@ public class AttachLibraryItemsServiceImpl extends ServiceImpl<AttachLibraryItem
     }
 
     @Override
-    @Transactional
+    @Tran
     public AttachLibraryItems add(AttachLibraryItemsAddReqVO attachLibraryItemsAddReqVO) {
         AttachLibraryItems attachLibraryItems = AttachLibraryItemsConvert.INSTANCE.convertAddReqVO(attachLibraryItemsAddReqVO);
         attachLibraryItemsMapper.insert(attachLibraryItems);
@@ -47,7 +50,7 @@ public class AttachLibraryItemsServiceImpl extends ServiceImpl<AttachLibraryItem
     }
 
     @Override
-    @Transactional
+    @Tran
     public AttachLibraryItems update(AttachLibraryItemsUpdateReqVO attachLibraryItemsUpdateReqVO) {
         AttachLibraryItems attachLibraryItems = AttachLibraryItemsConvert.INSTANCE.convertUpdateReqVO(attachLibraryItemsUpdateReqVO);
         attachLibraryItemsMapper.updateById(attachLibraryItems);
@@ -60,7 +63,7 @@ public class AttachLibraryItemsServiceImpl extends ServiceImpl<AttachLibraryItem
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         attachLibraryItemsMapper.deleteById(id);
         return true;

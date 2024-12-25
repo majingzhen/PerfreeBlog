@@ -42,7 +42,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -57,7 +57,7 @@ import static com.perfree.enums.ErrorCode.ARTICLE_SLUG_EXIST;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
     @Resource
@@ -93,7 +93,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public Article createArticle(ArticleAddReqVO articleAddReqVO) {
         // 验证slug是否重复
         Article queryBySlug = articleMapper.getBySlugAndType(articleAddReqVO.getSlug(), articleAddReqVO.getType());
@@ -121,7 +121,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updateIsComment(ArticleUpdateIsCommentReqVO articleUpdateIsCommentReqVO) {
         Article article = ArticleConvert.INSTANCE.convertModelByIsCommentVO(articleUpdateIsCommentReqVO);
         articleMapper.updateById(article);
@@ -129,7 +129,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updateIsTop(ArticleUpdateIsTopReqVO articleUpdateIsTopReqVO) {
         Article article = ArticleConvert.INSTANCE.convertModelByIsTopVO(articleUpdateIsTopReqVO);
         articleMapper.updateById(article);
@@ -137,7 +137,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updateStatus(ArticleUpdateStatusReqVO articleUpdateStatusReqVO) {
         Article article = ArticleConvert.INSTANCE.convertModelByStatusVO(articleUpdateStatusReqVO);
         articleMapper.updateById(article);
@@ -145,7 +145,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         articleCategoryService.delByArticleId(id);
         articleTagService.delByArticleId(id);
@@ -179,7 +179,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public Article updateArticle(ArticleUpdateReqVO articleUpdateReqVO) {
         ArticleRespVO articleById = articleMapper.getArticleById(articleUpdateReqVO.getId());
         if (null == articleById) {
@@ -209,13 +209,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updateGreatCount(Integer id) {
         return articleMapper.updateGreatCount(id);
     }
 
     @Override
-    @Transactional
+    @Tran
     public JournalRespVO createJournal(JournalAddReqVO journalAddReqVO) {
         if (StringUtils.isBlank(journalAddReqVO.getContent()) && (null == journalAddReqVO.getAttachList() || journalAddReqVO.getAttachList().isEmpty())){
             throw new ServiceException(ErrorCode.JOURNAL_NOT_EMPTY);

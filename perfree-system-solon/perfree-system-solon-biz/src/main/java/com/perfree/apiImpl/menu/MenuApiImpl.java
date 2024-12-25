@@ -6,15 +6,16 @@ import com.perfree.service.menu.MenuService;
 import com.perfree.system.api.menu.MenuApi;
 import com.perfree.system.api.menu.dto.MenuDTO;
 import jakarta.annotation.Resource;
+import org.noear.solon.annotation.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
-@Service
+@Component
 public class MenuApiImpl implements MenuApi {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(MenuApiImpl.class);
-    @Resource
+    @Inject
     private MenuService menuService;
 
     @Override

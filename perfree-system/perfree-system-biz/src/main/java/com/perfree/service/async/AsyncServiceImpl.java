@@ -17,11 +17,11 @@ import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
 import java.util.HashMap;
 
-@Service
+@Component
 public class AsyncServiceImpl implements AsyncService{
 
     @Value("${server.port}")

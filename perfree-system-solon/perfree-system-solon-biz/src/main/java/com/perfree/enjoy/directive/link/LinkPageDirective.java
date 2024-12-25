@@ -18,7 +18,7 @@ import com.perfree.model.Link;
 import com.perfree.service.article.ArticleService;
 import com.perfree.service.link.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 @TemplateDirective("linkPage")
 @Component

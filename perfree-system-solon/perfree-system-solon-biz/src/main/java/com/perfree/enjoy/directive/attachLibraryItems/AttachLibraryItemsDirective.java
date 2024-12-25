@@ -13,7 +13,7 @@ import com.perfree.controller.auth.attachLibraryItems.vo.AttachLibraryItemsPageR
 import com.perfree.controller.auth.attachLibraryItems.vo.AttachLibraryItemsRespVO;
 import com.perfree.service.attachLibraryItems.AttachLibraryItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 @TemplateDirective("attachLibraryItemsPage")
 @Component

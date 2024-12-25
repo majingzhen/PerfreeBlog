@@ -8,11 +8,15 @@ import com.perfree.controller.auth.system.vo.MenuTreeListRespVO;
 import com.perfree.convert.option.OptionConvert;
 import com.perfree.service.menu.MenuService;
 import com.perfree.service.user.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.noear.solon.annotation.*;
+import org.noear.solon.annotation.Get;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,40 +30,44 @@ import java.util.List;
  * @version 1.0.0
  * @create 2023/9/28 10:16
  **/
-@RestController
-@Tag(name = "系统基础接口")
-@RequestMapping("api/auth")
+@Controller
+@Api(tags = "系统基础接口")
+@Mapping("api/auth")
 public class SystemController {
-    @Resource
+    @Inject
     private UserService userService;
 
-    @Resource
+    @Inject
     private MenuService menuService;
 
-    @Resource
+    @Inject
     private OptionCacheService optionCacheService;
 
 
-    @GetMapping("menuAdminList")
-    @Operation(summary = "获取当前账号拥有的菜单")
+    @Get
+    @Mapping("menuAdminList")
+    @ApiOperation(value = "获取当前账号拥有的菜单")
     public CommonResult<List<MenuTreeListRespVO>> menuList(){
         return CommonResult.success(menuService.menuAdminListByLoginUser());
     }
 
-    @GetMapping("getAllOption")
-    @Operation(summary = "获取所有配置信息")
+    @Get
+    @Mapping("getAllOption")
+    @ApiOperation(value = "获取所有配置信息")
     public CommonResult<List<OptionRespVO>> getAllOption(){
         return CommonResult.success(OptionConvert.INSTANCE.convertCacheDTO2RespListVO(optionCacheService.getAllOption()));
     }
 
-    @GetMapping("userInfo")
-    @Operation(summary = "获取当前登录账号的信息")
+    @Get
+    @Mapping("userInfo")
+    @ApiOperation(value = "获取当前登录账号的信息")
     public CommonResult<LoginUserInfoRespVO> userInfo(){
         return CommonResult.success(userService.userInfo());
     }
 
-    @GetMapping("logout")
-    @Operation(summary = "退出登录")
+    @Get
+    @Mapping("logout")
+    @ApiOperation(value = "退出登录")
     public CommonResult<String> logout(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if (session != null) {

@@ -6,9 +6,9 @@ import com.perfree.service.mailServer.MailServerService;
 import com.perfree.system.api.mailServer.MailServerApi;
 import com.perfree.system.api.mailServer.dto.MailServerDTO;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
-@Service
+@Component
 public class MailServerApiImpl implements MailServerApi {
 
     @Resource

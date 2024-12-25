@@ -10,66 +10,74 @@ import com.perfree.demoModel.DemoMode;
 import com.perfree.model.Plugins;
 import com.perfree.plugin.commons.PluginSetting;
 import com.perfree.service.plugins.PluginsService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
-@Tag(name = "插件相关接口")
-@RequestMapping("api/auth/plugins")
+@Controller
+@Api(tags = "插件相关接口")
+@Mapping("api/auth/plugins")
 public class PluginsController {
 
-    @Resource
+    @Inject
     private PluginsService pluginsService;
 
-    @PostMapping("/page")
-    @Operation(summary = "插件分页列表")
+    @Post
+    @Mapping("/page")
+    @ApiOperation(value = "插件分页列表")
     @PreAuthorize("@ss.hasPermission('admin:plugin:query')")
-    public CommonResult<PageResult<PluginsRespVO>> page(@RequestBody PluginsPageReqVO pageVO) {
+    public CommonResult<PageResult<PluginsRespVO>> page(@Body PluginsPageReqVO pageVO) {
         PageResult<Plugins> pluginsPageResult = pluginsService.pluginsPage(pageVO);
         return success(PluginsConvert.INSTANCE.convertPageResultVO(pluginsPageResult));
     }
 
 
-    @PostMapping("/installPlugin")
-    @Operation(summary = "插件安装")
+    @Post
+    @Mapping("/installPlugin")
+    @ApiOperation(value = "插件安装")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:plugin:install')")
     public CommonResult<Boolean> installPlugin(InstallPluginReqVO installPluginReqVO) {
         return success( pluginsService.installPlugin(installPluginReqVO.getFile()));
     }
 
-    @PostMapping("/disablePlugin")
-    @Operation(summary = "插件禁用")
+    @Post
+    @Mapping("/disablePlugin")
+    @ApiOperation(value = "插件禁用")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:plugin:disable')")
-    public CommonResult<Boolean> disablePlugin(@RequestParam(value = "pluginId") String pluginId) {
+    public CommonResult<Boolean> disablePlugin(@Param(value = "pluginId") String pluginId) {
         return success( pluginsService.disablePlugin(pluginId));
     }
 
-    @PostMapping("/enablePlugin")
-    @Operation(summary = "插件启用")
+    @Post
+    @Mapping("/enablePlugin")
+    @ApiOperation(value = "插件启用")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:plugin:enable')")
-    public CommonResult<Boolean> enablePlugin(@RequestParam(value = "pluginId") String pluginId) {
+    public CommonResult<Boolean> enablePlugin(@Param(value = "pluginId") String pluginId) {
         return success( pluginsService.enablePlugin(pluginId));
     }
 
-    @PostMapping("/uninstallPlugin")
-    @Operation(summary = "卸载插件")
+    @Post
+    @Mapping("/uninstallPlugin")
+    @ApiOperation(value = "卸载插件")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:plugin:uninstall')")
-    public CommonResult<Boolean> uninstallPlugin(@RequestParam(value = "pluginId") String pluginId) {
+    public CommonResult<Boolean> uninstallPlugin(@Param(value = "pluginId") String pluginId) {
         return success( pluginsService.unInstallPlugin(pluginId));
     }
 
-    @GetMapping("/getPluginSetting")
-    @Operation(summary = "获取插件设置项")
-    public CommonResult<PluginSetting> getPluginSetting(@RequestParam(value = "pluginId") String pluginId) {
+    @Get
+    @Mapping("/getPluginSetting")
+    @ApiOperation(value = "获取插件设置项")
+    public CommonResult<PluginSetting> getPluginSetting(@Param(value = "pluginId") String pluginId) {
         return success( pluginsService.getPluginSetting(pluginId));
     }
 

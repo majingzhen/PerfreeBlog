@@ -16,7 +16,7 @@ import com.perfree.security.annotation.PluginPreAuthorize;
 #else
 import org.springframework.security.access.prepost.PreAuthorize;
 #end
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 import jakarta.servlet.http.HttpServletResponse;
 import com.perfree.commons.excel.ExcelUtils;
 
@@ -29,12 +29,12 @@ import static com.perfree.commons.common.CommonResult.success;
 * @description ${table.comment} controller
 * @author ${table.author}
 **/
-@RestController
+@Controller
 @Tag(name = "${table.comment}相关接口")
-@RequestMapping("api/auth/${table.lowerFirstClassName}")
+@Mapping("api/auth/${table.lowerFirstClassName}")
 public class ${table.className}Controller {
 
-    @Resource
+    @Inject
     private ${table.className}Service ${table.lowerFirstClassName}Service;
 
     @PostMapping("/page")
@@ -44,7 +44,7 @@ public class ${table.className}Controller {
     #else
     @PreAuthorize("@ss.hasPermission('admin:${table.lowerFirstClassName}:query')")
     #end
-    public CommonResult<PageResult<${table.className}RespVO>> page(@RequestBody ${table.className}PageReqVO pageVO) {
+    public CommonResult<PageResult<${table.className}RespVO>> page(@Body ${table.className}PageReqVO pageVO) {
         PageResult<${table.className}> ${table.lowerFirstClassName}PageResult = ${table.lowerFirstClassName}Service.${table.lowerFirstClassName}Page(pageVO);
         return success(${table.className}Convert.INSTANCE.convertPageResultVO(${table.lowerFirstClassName}PageResult));
     }
@@ -56,7 +56,7 @@ public class ${table.className}Controller {
     #else
     @PreAuthorize("@ss.hasPermission('admin:${table.lowerFirstClassName}:create')")
     #end
-    public CommonResult<${table.className}RespVO> add(@RequestBody @Valid ${table.className}AddReqVO ${table.lowerFirstClassName}AddReqVO) {
+    public CommonResult<${table.className}RespVO> add(@Body @Valid ${table.className}AddReqVO ${table.lowerFirstClassName}AddReqVO) {
         return success(${table.className}Convert.INSTANCE.convertRespVO(${table.lowerFirstClassName}Service.add(${table.lowerFirstClassName}AddReqVO)));
     }
 
@@ -67,13 +67,13 @@ public class ${table.className}Controller {
     #else
     @PreAuthorize("@ss.hasPermission('admin:${table.lowerFirstClassName}:update')")
     #end
-    public CommonResult<${table.className}RespVO> update(@RequestBody @Valid ${table.className}UpdateReqVO ${table.lowerFirstClassName}UpdateReqVO) {
+    public CommonResult<${table.className}RespVO> update(@Body @Valid ${table.className}UpdateReqVO ${table.lowerFirstClassName}UpdateReqVO) {
         return success(${table.className}Convert.INSTANCE.convertRespVO(${table.lowerFirstClassName}Service.update(${table.lowerFirstClassName}UpdateReqVO)));
     }
 
     @GetMapping("/get")
     @Operation(summary = "根据${table.primaryColumn}获取${table.comment}")
-    public CommonResult<${table.className}RespVO> get(@RequestParam(value = "${table.primaryColumn}") ${table.primaryColumnType} ${table.primaryColumn}) {
+    public CommonResult<${table.className}RespVO> get(@Param(value = "${table.primaryColumn}") ${table.primaryColumnType} ${table.primaryColumn}) {
         return success(${table.className}Convert.INSTANCE.convertRespVO(${table.lowerFirstClassName}Service.get(${table.primaryColumn})));
     }
 
@@ -84,7 +84,7 @@ public class ${table.className}Controller {
     #else
     @PreAuthorize("@ss.hasPermission('admin:${table.lowerFirstClassName}:delete')")
     #end
-    public CommonResult<Boolean> del(@RequestParam(value = "${table.primaryColumn}") ${table.primaryColumnType} ${table.primaryColumn}) {
+    public CommonResult<Boolean> del(@Param(value = "${table.primaryColumn}") ${table.primaryColumnType} ${table.primaryColumn}) {
         return success(${table.lowerFirstClassName}Service.del(${table.primaryColumn}));
     }
 
@@ -101,7 +101,7 @@ public class ${table.className}Controller {
     #else
     @PreAuthorize("@ss.hasPermission('admin:${table.lowerFirstClassName}:export')")
     #end
-    public void export(@RequestBody ${table.className}ExportReqVO exportReqVO, HttpServletResponse response) {
+    public void export(@Body ${table.className}ExportReqVO exportReqVO, HttpServletResponse response) {
         List<${table.className}> ${table.lowerFirstClassName}List = ${table.lowerFirstClassName}Service.queryExportData(exportReqVO);
         ExcelUtils.renderExcel(response, ${table.className}Convert.INSTANCE.convertToExcelVOList(${table.lowerFirstClassName}List), ${table.className}ExcelVO.class, "${table.comment}数据","${table.comment}数据.xlsx");
     }

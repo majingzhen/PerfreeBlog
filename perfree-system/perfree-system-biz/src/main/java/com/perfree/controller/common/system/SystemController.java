@@ -26,7 +26,7 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FastByteArrayOutputStream;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -39,9 +39,9 @@ import java.util.List;
  * @version 1.0.0
  * @create 2023/9/28 10:16
  **/
-@RestController
+@Controller
 @Tag(name = "系统基础接口")
-@RequestMapping("api")
+@Mapping("api")
 public class SystemController {
     @Resource
     private UserService userService;
@@ -67,25 +67,25 @@ public class SystemController {
 
     @PostMapping("login")
     @Operation(summary = "使用账号密码登录")
-    public CommonResult<LoginUserRespVO> login(@RequestBody @Valid LoginUserReqVO loginUserVO){
+    public CommonResult<LoginUserRespVO> login(@Body @Valid LoginUserReqVO loginUserVO){
         return CommonResult.success(userService.login(loginUserVO));
     }
 
     @PostMapping("register")
     @Operation(summary = "注册账号")
-    public CommonResult<UserRespVO> register(@RequestBody @Valid RegisterUserReqVO reqVO){
+    public CommonResult<UserRespVO> register(@Body @Valid RegisterUserReqVO reqVO){
         return CommonResult.success(UserConvert.INSTANCE.convertRespVO(userService.register(reqVO)));
     }
 
     @PostMapping("findPasswordStep1")
     @Operation(summary = "找回密码步骤1")
-    public CommonResult<Boolean> findPasswordStep1(@RequestBody @Valid FindPasswordStep1ReqVO reqVO){
+    public CommonResult<Boolean> findPasswordStep1(@Body @Valid FindPasswordStep1ReqVO reqVO){
         return CommonResult.success(userService.findPasswordStep1(reqVO));
     }
 
     @PostMapping("findPasswordStep2")
     @Operation(summary = "找回密码步骤2")
-    public CommonResult<Boolean> findPasswordStep2(@RequestBody @Valid FindPasswordStep2ReqVO reqVO){
+    public CommonResult<Boolean> findPasswordStep2(@Body @Valid FindPasswordStep2ReqVO reqVO){
         return CommonResult.success(userService.findPasswordStep2(reqVO));
     }
 
@@ -124,7 +124,7 @@ public class SystemController {
 
     @PostMapping("refreshToken")
     @Operation(summary = "刷新token")
-    public CommonResult<LoginUserRespVO> refreshToken(@Valid @RequestBody RefreshTokenReqVO reqVO){
+    public CommonResult<LoginUserRespVO> refreshToken(@Valid @Body RefreshTokenReqVO reqVO){
         return CommonResult.success(userService.refreshToken(reqVO.getRefreshToken()));
     }
 
@@ -137,7 +137,7 @@ public class SystemController {
 
     @PostMapping("initWeb")
     @Operation(summary = "初始化站点", hidden = true)
-    public CommonResult<Boolean> initWeb(@Valid @RequestBody InitWebReqVO reqVO){
+    public CommonResult<Boolean> initWeb(@Valid @Body InitWebReqVO reqVO){
         return CommonResult.success(commonService.initWeb(reqVO));
     }
 }

@@ -9,13 +9,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
+@Controller
 @Tag(name = "附件库数据相关接口")
-@RequestMapping("api/attachLibraryItems")
+@Mapping("api/attachLibraryItems")
 public class AttachLibraryItemsController {
 
     @Resource
@@ -24,14 +24,14 @@ public class AttachLibraryItemsController {
     @PostMapping("/page")
     @Operation(summary = "附件库数据分页列表")
     @PreAuthorize("@ss.hasPermission('admin:attachLibraryItems:query')")
-    public CommonResult<PageResult<AttachLibraryItemsRespVO>> page(@RequestBody AttachLibraryItemsPageReqVO pageVO) {
+    public CommonResult<PageResult<AttachLibraryItemsRespVO>> page(@Body AttachLibraryItemsPageReqVO pageVO) {
         PageResult<AttachLibraryItemsRespVO> attachLibraryItemsPageResult = attachLibraryItemsService.attachLibraryItemsPage(pageVO);
         return success(attachLibraryItemsPageResult);
     }
 
     @GetMapping("/get")
     @Operation(summary = "根据id获取附件库数据")
-    public CommonResult<AttachLibraryItemsRespVO> get(@RequestParam(value = "id") Integer id) {
+    public CommonResult<AttachLibraryItemsRespVO> get(@Param(value = "id") Integer id) {
         return success(attachLibraryItemsService.get(id));
     }
 

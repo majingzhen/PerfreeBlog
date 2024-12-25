@@ -3,16 +3,17 @@ package com.perfree.apiImpl.plugin;
 import com.perfree.service.plugins.PluginsService;
 import com.perfree.system.api.plugin.dto.PluginApi;
 import jakarta.annotation.Resource;
+import org.noear.solon.annotation.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
-@Service
+@Component
 public class PluginApiImpl implements PluginApi {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PluginApiImpl.class);
 
-    @Resource
+    @Inject
     private PluginsService pluginsService;
 
     @Override

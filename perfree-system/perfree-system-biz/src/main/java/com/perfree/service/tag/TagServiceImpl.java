@@ -15,7 +15,7 @@ import com.perfree.mapper.TagMapper;
 import com.perfree.model.Tag;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import static com.perfree.enums.ErrorCode.TAG_SLUG_EXIST;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagService {
 
     @Resource
@@ -48,7 +48,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     }
 
     @Override
-    @Transactional
+    @Tran
     public Tag add(TagCreateReqVO tagCreateReqVO) {
         if (StringUtils.isNotBlank(tagCreateReqVO.getSlug())) {
             TagRespVO queryTag = tagMapper.getBySlug(tagCreateReqVO.getSlug());
@@ -66,7 +66,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updateTag(TagUpdateReqVO tagUpdateReqVO) {
         if (StringUtils.isNotBlank(tagUpdateReqVO.getSlug())) {
             TagRespVO queryTag = tagMapper.getBySlug(tagUpdateReqVO.getSlug());
@@ -83,7 +83,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         tagMapper.deleteById(id);
         articleTagMapper.delByTagId(id);
@@ -91,7 +91,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     }
 
     @Override
-    @Transactional
+    @Tran
     public List<Tag> batchAddTagByName(List<String> addTags) {
         if (null == addTags || addTags.isEmpty()) {
             return new ArrayList<>();

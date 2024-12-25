@@ -7,15 +7,13 @@ import com.perfree.plugin.PluginInfo;
 import com.perfree.plugin.annotation.InterceptPath;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Controller;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.annotation.Annotation;
@@ -32,7 +30,7 @@ import java.util.List;
 public class ClassHandler implements BasePluginRegistryHandler{
     // 只要是带以下注解的,全部注册bean
     private final static Class<?>[] REGISTER_ANNO = {Bean.class, Configuration.class, Component.class, RestController.class,
-            Controller.class, Mapper.class, Service.class, Repository.class, InterceptPath.class};
+            Controller.class, Mapper.class, Repository.class, InterceptPath.class};
 
     @Override
     public void initialize() throws Exception {
@@ -74,7 +72,8 @@ public class ClassHandler implements BasePluginRegistryHandler{
         for (Class<?> mapperClass : mapperClassList) {
             GenericBeanDefinition definition = new GenericBeanDefinition();
             definition.getConstructorArgumentValues().addGenericArgumentValue(mapperClass);
-            definition.setBeanClass(MapperFactoryBean.class);
+            // TODO MapperFactoryBean 注释
+            //definition.setBeanClass(MapperFactoryBean.class);
             definition.getPropertyValues().add("addToConfig", true);
             definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
             PluginApplicationContextHolder.getApplicationContext(pluginInfo.getPluginId()).registerBeanDefinition(mapperClass.getName(), definition);

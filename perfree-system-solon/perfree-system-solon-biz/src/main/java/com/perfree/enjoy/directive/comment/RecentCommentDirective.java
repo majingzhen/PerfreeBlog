@@ -8,7 +8,7 @@ import com.perfree.commons.directive.TemplateDirective;
 import com.perfree.controller.auth.comment.vo.CommentRespVO;
 import com.perfree.service.comment.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 import java.util.HashMap;
 import java.util.List;

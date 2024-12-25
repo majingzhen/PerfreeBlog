@@ -3,9 +3,9 @@ package com.perfree.apiImpl.option;
 import com.perfree.service.option.OptionService;
 import com.perfree.system.api.option.OptionApi;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
-@Service
+@Component
 public class OptionApiImpl implements OptionApi {
 
     @Resource

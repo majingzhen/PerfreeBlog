@@ -27,7 +27,7 @@ import com.perfree.security.vo.LoginUserVO;
 import com.perfree.service.async.AsyncService;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -40,7 +40,7 @@ import java.util.List;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
 
     @Resource
@@ -79,14 +79,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         commentMapper.del(id);
         return true;
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean updateStatus(CommentUpdateStatusReqVO commentUpdateStatusReqVO) {
         Comment comment = CommentConvert.INSTANCE.convertByUpdateStatusReqVO(commentUpdateStatusReqVO);
         commentMapper.updateById(comment);
@@ -159,7 +159,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     @Override
-    @Transactional
+    @Tran
     public void delByArticleId(Integer articleId) {
         commentMapper.delByArticleId(articleId);
     }

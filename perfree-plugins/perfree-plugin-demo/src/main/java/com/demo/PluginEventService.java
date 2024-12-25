@@ -6,9 +6,9 @@ import com.perfree.plugin.commons.PluginUtils;
 import com.perfree.system.api.menu.MenuApi;
 import com.perfree.system.api.menu.dto.MenuDTO;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 
-@Service
+@Component
 public class PluginEventService implements BasePluginEvent {
 
     @Resource

@@ -13,15 +13,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import java.util.List;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
+@Controller
 @Tag(name = "标签相关接口")
-@RequestMapping("api/auth/tag")
+@Mapping("api/auth/tag")
 public class TagController {
 
     @Resource
@@ -29,7 +29,7 @@ public class TagController {
 
     @PostMapping("/page")
     @Operation(summary = "标签分页列表")
-    public CommonResult<PageResult<TagRespVO>> page(@RequestBody TagPageReqVO pageVO) {
+    public CommonResult<PageResult<TagRespVO>> page(@Body TagPageReqVO pageVO) {
         PageResult<TagRespVO> tagPageResult = tagService.tagPage(pageVO);
         return success(tagPageResult);
     }
@@ -44,21 +44,21 @@ public class TagController {
     @PostMapping("/add")
     @Operation(summary = "新增标签")
     @PreAuthorize("@ss.hasPermission('admin:tag:create')")
-    public CommonResult<TagRespVO> add(@RequestBody @Valid TagCreateReqVO tagCreateReqVO) {
+    public CommonResult<TagRespVO> add(@Body @Valid TagCreateReqVO tagCreateReqVO) {
         com.perfree.model.Tag tag = tagService.add(tagCreateReqVO);
         return CommonResult.success(TagConvert.INSTANCE.convertRespVO(tag));
     }
 
     @GetMapping("/get")
     @Operation(summary = "获取标签信息")
-    public CommonResult<TagRespVO> add(@RequestParam(value = "id") Integer id) {
+    public CommonResult<TagRespVO> add(@Param(value = "id") Integer id) {
         return CommonResult.success(tagService.getTagById(id));
     }
 
     @PutMapping("/update")
     @Operation(summary = "修改标签")
     @PreAuthorize("@ss.hasPermission('admin:tag:update')")
-    public CommonResult<Boolean> update(@RequestBody @Valid TagUpdateReqVO tagUpdateReqVO) {
+    public CommonResult<Boolean> update(@Body @Valid TagUpdateReqVO tagUpdateReqVO) {
         return CommonResult.success(tagService.updateTag(tagUpdateReqVO));
     }
 
@@ -66,7 +66,7 @@ public class TagController {
     @DeleteMapping("/del")
     @Operation(summary = "根据id删除标签")
     @PreAuthorize("@ss.hasPermission('admin:tag:delete')")
-    public CommonResult<Boolean> del(@RequestParam(value = "id") Integer id) {
+    public CommonResult<Boolean> del(@Param(value = "id") Integer id) {
         return CommonResult.success(tagService.del(id));
     }
 }

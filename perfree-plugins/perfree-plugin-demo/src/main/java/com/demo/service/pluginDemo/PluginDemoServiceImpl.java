@@ -8,7 +8,7 @@ import com.demo.convert.pluginDemo.PluginDemoConvert;
 import com.demo.mapper.PluginDemoMapper;
 import com.demo.model.PluginDemo;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
  * @description 测试 ServiceImpl
  * @author Perfree
  **/
-@Service
+@Component
 public class PluginDemoServiceImpl extends ServiceImpl<PluginDemoMapper, PluginDemo> implements PluginDemoService {
 
     @Resource
@@ -31,7 +31,7 @@ public class PluginDemoServiceImpl extends ServiceImpl<PluginDemoMapper, PluginD
     }
 
     @Override
-    @Transactional
+    @Tran
     public PluginDemo add(PluginDemoAddReqVO pluginDemoAddReqVO) {
         PluginDemo pluginDemo = PluginDemoConvert.INSTANCE.convertAddReqVO(pluginDemoAddReqVO);
         pluginDemoMapper.insert(pluginDemo);
@@ -39,7 +39,7 @@ public class PluginDemoServiceImpl extends ServiceImpl<PluginDemoMapper, PluginD
     }
 
     @Override
-    @Transactional
+    @Tran
     public PluginDemo update(PluginDemoUpdateReqVO pluginDemoUpdateReqVO) {
         PluginDemo pluginDemo = PluginDemoConvert.INSTANCE.convertUpdateReqVO(pluginDemoUpdateReqVO);
         pluginDemoMapper.updateById(pluginDemo);
@@ -52,7 +52,7 @@ public class PluginDemoServiceImpl extends ServiceImpl<PluginDemoMapper, PluginD
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         pluginDemoMapper.deleteById(id);
         return true;

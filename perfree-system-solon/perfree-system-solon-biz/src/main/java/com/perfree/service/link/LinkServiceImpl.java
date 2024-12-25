@@ -14,7 +14,9 @@ import com.perfree.convert.link.LinkConvert;
 import com.perfree.mapper.LinkMapper;
 import com.perfree.model.Link;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.data.annotation.Tran;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -25,10 +27,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements LinkService {
 
-    @Resource
+    @Db
     private LinkMapper linkMapper;
 
     @Override
@@ -40,7 +42,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
     }
 
     @Override
-    @Transactional
+    @Tran
     public Link addLink(LinkAddReqVO linkAddReqVO) {
         Link link = LinkConvert.INSTANCE.convertAddReqVOToModel(linkAddReqVO);
         linkMapper.insert(link);
@@ -48,7 +50,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
     }
 
     @Override
-    @Transactional
+    @Tran
     public Link updateLink(LinkUpdateReqVO linkUpdateReqVO) {
         Link link = LinkConvert.INSTANCE.convertUpdateReqVOToModel(linkUpdateReqVO);
         linkMapper.updateById(link);
@@ -56,7 +58,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         linkMapper.deleteById(id);
         return true;

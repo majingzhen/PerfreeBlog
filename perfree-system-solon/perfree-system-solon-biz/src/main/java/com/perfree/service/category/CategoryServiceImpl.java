@@ -16,7 +16,9 @@ import com.perfree.mapper.CategoryMapper;
 import com.perfree.model.Category;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.solon.annotation.Db;
+import org.noear.solon.data.annotation.Tran;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -33,13 +35,13 @@ import static com.perfree.enums.ErrorCode.CATEGORY_SLUG_EXIST;
  * @author perfree
  * @since 2023-09-27
  */
-@Service
+@Component
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 
-    @Resource
+    @Db
     private CategoryMapper categoryMapper;
 
-    @Resource
+    @Db
     private ArticleCategoryMapper articleCategoryMapper;
 
     @Override
@@ -48,7 +50,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
-    @Transactional
+    @Tran
     public Category addCategory(CategoryAddReqVO categoryAddReqVO) {
         if (StringUtils.isNotBlank(categoryAddReqVO.getSlug())) {
             CategoryRespVO queryCategory = categoryMapper.selectBySlug(categoryAddReqVO.getSlug());
@@ -66,7 +68,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
-    @Transactional
+    @Tran
     public Category updateCategory(CategoryUpdateReqVO categoryUpdateReqVO) {
         if (StringUtils.isNotBlank(categoryUpdateReqVO.getSlug())) {
             CategoryRespVO categoryRespVO = categoryMapper.selectBySlug(categoryUpdateReqVO.getSlug());
@@ -82,7 +84,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         List<Category> queryCategoryList = categoryMapper.selectByPid(id);
         if (!queryCategoryList.isEmpty()){

@@ -23,32 +23,35 @@ solon.logging:
 
 solon.app:
   name: "perfree-server"
-  group: "perfree"
+  group: "com.perfree"
 
 # 数据源配置
-datasource:
-  db1:
-    type: "com.zaxxer.hikari.HikariDataSource"
-    url: "jdbc:mysql://153.153.234.13:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
-    username: "root"
-    password: "xwt@123"
-    driverClassName: "com.mysql.cj.jdbc.Driver"
-    hikariCP:
-      minimumIdle: 30
-      maximumPoolSize: 300
-      connectionTimeout: 30000
-      idleTimeout: 600000
-      maxLifetime: 1800000
-      poolName: "perfree"
-      autoCommit: true
+datasource.db1:
+  type: "com.zaxxer.hikari.HikariDataSource"
+  url: "jdbc:mysql://153.153.234.13:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
+  username: "root"
+  password: "xwt@123"
+  driverClassName: "com.mysql.cj.jdbc.Driver"
+  hikariCP:
+    minimumIdle: 30
+    maximumPoolSize: 300
+    connectionTimeout: 30000
+    idleTimeout: 600000
+    maxLifetime: 1800000
+    poolName: "perfree"
+    autoCommit: true
 
 # MyBatis Plus 配置
-mybatis.plus:
+mybatis:
   db1:
-    typeAliasesPackage: "com.perfree.*.model"
-    mapperLocations: "classpath*:mapper/*.xml"
+    typeAliases:
+      - com.perfree.*.model.*
+    mappers:
+      - com.perfree.*.mapper.*
     configuration:
-      mapUnderscoreToCamelCase: false
+      cacheEnabled: false
+      mapUnderscoreToCamelCase: true
+      mapperVerifyEnabled: false
       logImpl: "org.apache.ibatis.logging.stdout.StdOutImpl"
     globalConfig:
       dbConfig:

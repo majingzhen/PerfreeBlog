@@ -11,7 +11,7 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 import java.io.File;
 import java.io.FileInputStream;

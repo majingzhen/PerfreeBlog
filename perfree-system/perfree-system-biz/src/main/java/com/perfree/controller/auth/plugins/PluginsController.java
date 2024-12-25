@@ -14,13 +14,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
+@Controller
 @Tag(name = "插件相关接口")
-@RequestMapping("api/auth/plugins")
+@Mapping("api/auth/plugins")
 public class PluginsController {
 
     @Resource
@@ -29,7 +29,7 @@ public class PluginsController {
     @PostMapping("/page")
     @Operation(summary = "插件分页列表")
     @PreAuthorize("@ss.hasPermission('admin:plugin:query')")
-    public CommonResult<PageResult<PluginsRespVO>> page(@RequestBody PluginsPageReqVO pageVO) {
+    public CommonResult<PageResult<PluginsRespVO>> page(@Body PluginsPageReqVO pageVO) {
         PageResult<Plugins> pluginsPageResult = pluginsService.pluginsPage(pageVO);
         return success(PluginsConvert.INSTANCE.convertPageResultVO(pluginsPageResult));
     }
@@ -47,7 +47,7 @@ public class PluginsController {
     @Operation(summary = "插件禁用")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:plugin:disable')")
-    public CommonResult<Boolean> disablePlugin(@RequestParam(value = "pluginId") String pluginId) {
+    public CommonResult<Boolean> disablePlugin(@Param(value = "pluginId") String pluginId) {
         return success( pluginsService.disablePlugin(pluginId));
     }
 
@@ -55,7 +55,7 @@ public class PluginsController {
     @Operation(summary = "插件启用")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:plugin:enable')")
-    public CommonResult<Boolean> enablePlugin(@RequestParam(value = "pluginId") String pluginId) {
+    public CommonResult<Boolean> enablePlugin(@Param(value = "pluginId") String pluginId) {
         return success( pluginsService.enablePlugin(pluginId));
     }
 
@@ -63,13 +63,13 @@ public class PluginsController {
     @Operation(summary = "卸载插件")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:plugin:uninstall')")
-    public CommonResult<Boolean> uninstallPlugin(@RequestParam(value = "pluginId") String pluginId) {
+    public CommonResult<Boolean> uninstallPlugin(@Param(value = "pluginId") String pluginId) {
         return success( pluginsService.unInstallPlugin(pluginId));
     }
 
     @GetMapping("/getPluginSetting")
     @Operation(summary = "获取插件设置项")
-    public CommonResult<PluginSetting> getPluginSetting(@RequestParam(value = "pluginId") String pluginId) {
+    public CommonResult<PluginSetting> getPluginSetting(@Param(value = "pluginId") String pluginId) {
         return success( pluginsService.getPluginSetting(pluginId));
     }
 

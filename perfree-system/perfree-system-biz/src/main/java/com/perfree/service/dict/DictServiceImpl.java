@@ -12,7 +12,7 @@ import com.perfree.mapper.DictMapper;
 import com.perfree.model.Dict;
 import com.perfree.model.DictData;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
+import org.noear.solon.annotation.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.List;
  * @description 数据字典 ServiceImpl
  * @author Perfree
  **/
-@Service
+@Component
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements DictService {
 
     @Resource
@@ -38,7 +38,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     }
 
     @Override
-    @Transactional
+    @Tran
     public Dict add(DictAddReqVO dictAddReqVO) {
         Dict queryDict = dictMapper.queryByDictType(dictAddReqVO.getDictType());
         if (null != queryDict) {
@@ -50,7 +50,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     }
 
     @Override
-    @Transactional
+    @Tran
     public Dict update(DictUpdateReqVO dictUpdateReqVO) {
         Dict queryDict = dictMapper.queryByDictType(dictUpdateReqVO.getDictType());
         if (null != queryDict && !queryDict.getId().equals(dictUpdateReqVO.getId())) {
@@ -67,7 +67,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     }
 
     @Override
-    @Transactional
+    @Tran
     public Boolean del(Integer id) {
         Dict dict = dictMapper.selectById(id);
         List<DictData> dictDataList = dictDataMapper.queryByParentDictType(dict.getDictType());

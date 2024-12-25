@@ -10,7 +10,7 @@ import com.perfree.controller.auth.system.vo.MenuTreeListRespVO;
 import com.perfree.service.menu.MenuService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

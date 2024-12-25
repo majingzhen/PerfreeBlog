@@ -5,32 +5,36 @@ import com.perfree.commons.common.PageResult;
 import com.perfree.controller.auth.link.vo.LinkPageReqVO;
 import com.perfree.controller.auth.link.vo.LinkRespVO;
 import com.perfree.service.link.LinkService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
+import org.noear.solon.annotation.Mapping;
+import org.noear.solon.annotation.*;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
-@Tag(name = "友链相关接口")
-@RequestMapping("api/link")
+@Controller
+@Api(tags = "友链相关接口")
+@Mapping("api/link")
 public class LinkController {
 
-    @Resource
+    @Inject
     private LinkService linkService;
 
 
-    @PostMapping("/page")
-    @Operation(summary = "友链分页列表")
-    public CommonResult<PageResult<LinkRespVO>> page(@RequestBody LinkPageReqVO pageVO) {
+    @Post
+    @Mapping("/page")
+    @ApiOperation(value = "友链分页列表")
+    public CommonResult<PageResult<LinkRespVO>> page(@Body LinkPageReqVO pageVO) {
         PageResult<LinkRespVO> linkPageResult = linkService.linkPage(pageVO);
         return success(linkPageResult);
     }
 
-    @GetMapping("/get")
-    @Operation(summary = "获取友链")
-    public CommonResult<LinkRespVO> get(@RequestParam(value = "id") Integer id) {
+    @Get
+    @Mapping("/get")
+    @ApiOperation(value = "获取友链")
+    public CommonResult<LinkRespVO> get(@Param(value = "id") Integer id) {
         return success(linkService.getLinkById(id));
     }
 }

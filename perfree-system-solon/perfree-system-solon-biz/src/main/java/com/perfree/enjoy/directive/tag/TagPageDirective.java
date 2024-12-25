@@ -13,7 +13,7 @@ import com.perfree.controller.auth.tag.vo.TagPageReqVO;
 import com.perfree.controller.auth.tag.vo.TagRespVO;
 import com.perfree.service.tag.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.noear.solon.annotation.Component;
 
 @TemplateDirective("tagsPage")
 @Component

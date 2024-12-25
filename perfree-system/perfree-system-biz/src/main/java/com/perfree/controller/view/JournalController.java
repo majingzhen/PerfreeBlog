@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class JournalController extends BaseViewController {
 
-    @RequestMapping(value = {"/journal/{pageIndex}",  "journal"})
+    @Mapping(value = {"/journal/{pageIndex}",  "journal"})
     @FrontViewNodeRender
     @Operation(summary = "动态列表页")
     public String journalPage(@PathVariable(value = "pageIndex", required = false) String pageIndex, Model model) {

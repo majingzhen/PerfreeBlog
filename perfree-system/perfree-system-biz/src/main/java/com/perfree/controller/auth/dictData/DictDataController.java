@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +24,9 @@ import static com.perfree.commons.common.CommonResult.success;
 * @description 数据字典值 controller
 * @author Perfree
 **/
-@RestController
+@Controller
 @Tag(name = "数据字典值相关接口")
-@RequestMapping("api/auth/dictData")
+@Mapping("api/auth/dictData")
 public class DictDataController {
 
     @Resource
@@ -35,7 +35,7 @@ public class DictDataController {
     @PostMapping("/page")
     @Operation(summary = "数据字典值分页列表")
     @PreAuthorize("@ss.hasPermission('admin:dictData:query')")
-    public CommonResult<PageResult<DictDataRespVO>> page(@RequestBody DictDataPageReqVO pageVO) {
+    public CommonResult<PageResult<DictDataRespVO>> page(@Body DictDataPageReqVO pageVO) {
         PageResult<DictData> dictDataPageResult = dictDataService.dictDataPage(pageVO);
         return success(DictDataConvert.INSTANCE.convertPageResultVO(dictDataPageResult));
     }
@@ -44,7 +44,7 @@ public class DictDataController {
     @Operation(summary = "添加数据字典值")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:dictData:create')")
-    public CommonResult<DictDataRespVO> add(@RequestBody @Valid DictDataAddReqVO dictDataAddReqVO) {
+    public CommonResult<DictDataRespVO> add(@Body @Valid DictDataAddReqVO dictDataAddReqVO) {
         return success(DictDataConvert.INSTANCE.convertRespVO(dictDataService.add(dictDataAddReqVO)));
     }
 
@@ -52,13 +52,13 @@ public class DictDataController {
     @Operation(summary = "更新数据字典值")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:dictData:update')")
-    public CommonResult<DictDataRespVO> update(@RequestBody @Valid DictDataUpdateReqVO dictDataUpdateReqVO) {
+    public CommonResult<DictDataRespVO> update(@Body @Valid DictDataUpdateReqVO dictDataUpdateReqVO) {
         return success(DictDataConvert.INSTANCE.convertRespVO(dictDataService.update(dictDataUpdateReqVO)));
     }
 
     @GetMapping("/get")
     @Operation(summary = "根据id获取数据字典值")
-    public CommonResult<DictDataRespVO> get(@RequestParam(value = "id") Integer id) {
+    public CommonResult<DictDataRespVO> get(@Param(value = "id") Integer id) {
         return success(DictDataConvert.INSTANCE.convertRespVO(dictDataService.get(id)));
     }
 
@@ -66,7 +66,7 @@ public class DictDataController {
     @Operation(summary = "根据id删除数据字典值")
     @DemoMode
     @PreAuthorize("@ss.hasPermission('admin:dictData:delete')")
-    public CommonResult<Boolean> del(@RequestParam(value = "id") Integer id) {
+    public CommonResult<Boolean> del(@Param(value = "id") Integer id) {
         return success(dictDataService.del(id));
     }
 

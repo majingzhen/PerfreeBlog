@@ -9,53 +9,60 @@ import com.perfree.controller.common.comment.vo.CommentPageByArticleIdReqVO;
 import com.perfree.controller.common.comment.vo.CommentPageByTopPidReqVO;
 import com.perfree.convert.comment.CommentConvert;
 import com.perfree.service.comment.CommentService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.*;
+import org.noear.solon.annotation.*;
+import org.noear.solon.annotation.Post;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 import static com.perfree.commons.common.CommonResult.success;
 
-@RestController
-@Tag(name = "评论相关接口")
-@RequestMapping("api/comment")
+@Controller
+@Api(tags = "评论相关接口")
+@Mapping("api/comment")
 public class CommentController {
 
-    @Resource
+    @Inject
     private CommentService commentService;
 
-    @PostMapping("/pageByArticleId")
-    @Operation(summary = "根据文章id获取评论分页列表(顶级)")
-    public CommonResult<PageResult<CommentRespVO>> pageByArticleId(@Valid @RequestBody CommentPageByArticleIdReqVO pageVo) {
+    @Post
+    @Mapping("/pageByArticleId")
+    @ApiOperation(value = "根据文章id获取评论分页列表(顶级)")
+    public CommonResult<PageResult<CommentRespVO>> pageByArticleId(@Valid @Body CommentPageByArticleIdReqVO pageVo) {
         PageResult<CommentRespVO> commentPageResult = commentService.pageByArticleId(pageVo);
         return success(commentPageResult);
     }
 
-    @PostMapping("/pageByTopPid")
-    @Operation(summary = "根据topPid获取所有子级评论信息")
-    public CommonResult<PageResult<CommentRespVO>> pageByTopPid(@Valid @RequestBody CommentPageByTopPidReqVO pageVO) {
+    @Post
+    @Mapping("/pageByTopPid")
+    @ApiOperation(value = "根据topPid获取所有子级评论信息")
+    public CommonResult<PageResult<CommentRespVO>> pageByTopPid(@Valid @Body CommentPageByTopPidReqVO pageVO) {
         return CommonResult.success(commentService.pageByTopPid(pageVO));
     }
 
-    @PostMapping("/submitComment")
-    @Operation(summary = "提交评论")
-    public CommonResult<CommentRespVO> submitComment(@Valid @RequestBody CommentAddReqVO reqVO) {
+    @Post
+    @Mapping("/submitComment")
+    @ApiOperation(value = "提交评论")
+    public CommonResult<CommentRespVO> submitComment(@Valid @Body CommentAddReqVO reqVO) {
         return success(CommentConvert.INSTANCE.convertToRespVO(commentService.addComment(reqVO)));
     }
 
-    @GetMapping("getLatestComment")
-    @Operation(summary = "获取最新评论")
-    public CommonResult<List<CommentRespVO>> getLatestComment(@RequestParam("num") Integer num) {
+    @Get
+    @Mapping("/getLatestComment")
+    @ApiOperation(value = "获取最新评论")
+    public CommonResult<List<CommentRespVO>> getLatestComment(@Param("num") Integer num) {
         List<CommentRespVO> latestArticle = commentService.getLatestComment(num);
         return success(latestArticle);
     }
 
-    @GetMapping("getCommentByArticleId")
-    @Operation(summary = "根据文章id获取所有评论")
-    public CommonResult<List<CommentRespVO>> getCommentByArticleId(@RequestParam("articleId") Integer articleId) {
+    @Get
+    @Mapping("/getCommentByArticleId")
+    @ApiOperation(value = "根据文章id获取所有评论")
+    public CommonResult<List<CommentRespVO>> getCommentByArticleId(@Param("articleId") Integer articleId) {
         List<CommentRespVO> latestArticle = commentService.getCommentByArticleId(articleId);
         return success(latestArticle);
     }
