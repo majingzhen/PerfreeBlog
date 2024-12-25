@@ -10,6 +10,7 @@ import com.perfree.commons.utils.FileTypeUtils;
 import com.perfree.file.handle.BaseFileHandle;
 import com.perfree.system.api.attach.dto.AttachFileDTO;
 import com.perfree.system.api.attach.dto.AttachUploadDTO;
+import org.noear.solon.annotation.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
