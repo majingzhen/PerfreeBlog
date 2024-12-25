@@ -4,12 +4,11 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import com.perfree.cache.OptionCacheService;
-import com.perfree.commons.utils.SolonBeanUtil;
-import com.perfree.commons.utils.SpringBeanUtil;
 import com.perfree.plugin.PluginInfo;
 import com.perfree.plugin.PluginInfoHolder;
 import com.perfree.system.api.option.dto.OptionDTO;
 import org.apache.commons.lang3.StringUtils;
+import org.noear.solon.Solon;
 
 public class TplMethodShared {
 
@@ -20,7 +19,7 @@ public class TplMethodShared {
      * @author Perfree
      */
     public String option(String key, String identification) {
-        OptionDTO option = SolonBeanUtil.getBean(OptionCacheService.class).getOption(key, identification);
+        OptionDTO option = Solon.context().getBean(OptionCacheService.class).getOption(key, identification);
         if (null == option || StringUtils.isBlank(option.getValue())) {
             return null;
         }
@@ -34,7 +33,7 @@ public class TplMethodShared {
      * @author Perfree
      */
     public String option(String key, String identification,String defaultValue) {
-        OptionDTO option = SolonBeanUtil.getBean(OptionCacheService.class).getOption(key, identification);
+        OptionDTO option = Solon.context().getBean(OptionCacheService.class).getOption(key, identification);
         if (null == option || StringUtils.isBlank(option.getValue())) {
             return defaultValue;
         }
@@ -49,7 +48,7 @@ public class TplMethodShared {
      * @author Perfree
      */
     public boolean optionCompare(String key, String identification, String compareValue) {
-        OptionDTO option = SolonBeanUtil.getBean(OptionCacheService.class).getOption(key, identification);
+        OptionDTO option = Solon.context().getBean(OptionCacheService.class).getOption(key, identification);
         if (null == option || StringUtils.isBlank(option.getValue())) {
             return false;
         }

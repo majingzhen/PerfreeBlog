@@ -1,8 +1,7 @@
 package com.perfree.security.interceptor;
 
-import com.perfree.commons.utils.SolonBeanUtil;
-import com.perfree.commons.utils.SpringBeanUtil;
 import org.jetbrains.annotations.NotNull;
+import org.noear.solon.Solon;
 import org.springframework.expression.AccessException;
 import org.springframework.expression.BeanResolver;
 import org.springframework.expression.EvaluationContext;
@@ -11,6 +10,6 @@ public class CustomBeanResolver implements BeanResolver {
     @NotNull
     @Override
     public Object resolve(@NotNull EvaluationContext context, @NotNull String beanName) throws AccessException {
-        return SolonBeanUtil.getBean(beanName);
+        return Solon.context().getBean(beanName);
     }
 }

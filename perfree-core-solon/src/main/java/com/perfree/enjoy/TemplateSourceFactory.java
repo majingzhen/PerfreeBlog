@@ -5,11 +5,10 @@ import com.jfinal.template.source.FileSourceFactory;
 import com.jfinal.template.source.ISource;
 import com.jfinal.template.source.ISourceFactory;
 import com.perfree.commons.constant.SystemConstants;
-import com.perfree.commons.utils.SolonBeanUtil;
-import com.perfree.commons.utils.SpringBeanUtil;
 import com.perfree.plugin.PluginInfo;
 import com.perfree.plugin.PluginInfoHolder;
 import jakarta.servlet.http.HttpServletRequest;
+import org.noear.solon.Solon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -46,7 +45,7 @@ public class TemplateSourceFactory implements ISourceFactory {
 
         try{
             HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            RequestMappingHandlerMapping handlerMapping = SolonBeanUtil.getBean(RequestMappingHandlerMapping.class);
+            RequestMappingHandlerMapping handlerMapping = Solon.context().getBean(RequestMappingHandlerMapping.class);
             HandlerExecutionChain handlerChain = handlerMapping.getHandler(request);
             if (handlerChain == null) {
                 throw new IllegalArgumentException("File not found!");

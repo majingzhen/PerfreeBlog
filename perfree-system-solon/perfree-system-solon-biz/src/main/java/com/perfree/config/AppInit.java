@@ -19,6 +19,9 @@ import com.perfree.service.dictData.DictDataService;
 import com.perfree.service.option.OptionService;
 import com.perfree.service.plugins.PluginsService;
 import com.perfree.theme.ThemeManager;
+import org.bouncycastle.jcajce.provider.symmetric.AES;
+import org.noear.solon.Solon;
+import org.noear.solon.SolonApp;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.event.AppLoadEndEvent;
 import org.noear.solon.core.event.EventListener;
@@ -34,6 +37,8 @@ import java.sql.SQLException;
 
 import java.util.List;
 import java.util.Map;
+
+import static org.apache.velocity.runtime.RuntimeSingleton.loadDirective;
 
 /**
  * @author Perfree
@@ -101,7 +106,7 @@ public class AppInit implements EventListener<AppLoadEndEvent> {
     private void handleInit() throws Exception {
         LOGGER.info("-> 初始化模板指令....");
         //TODO 注释初始化模板
-        //loadDirective();
+        loadDirective();
         LOGGER.info("-> 初始化模板指令完成");
 
         LOGGER.info("-> 初始化存储策略配置缓存....");
@@ -122,9 +127,10 @@ public class AppInit implements EventListener<AppLoadEndEvent> {
         LOGGER.info("-> 初始化静态资源映射规则完成");
 
         LOGGER.info("-> 初始化插件....");
-        pluginsService.watchMonitorDevPlugins();
-        pluginsService.initPlugins();
-        LOGGER.info("-> 初始化插件完成");
+        // TODO 注释初始化插件
+        //pluginsService.watchMonitorDevPlugins();
+        //pluginsService.initPlugins();
+        //LOGGER.info("-> 初始化插件完成");
 
         LOGGER.info("-> 初始化主题处理逻辑....");
         initThemeHandle();
@@ -146,19 +152,19 @@ public class AppInit implements EventListener<AppLoadEndEvent> {
     /**
      * Load Template Directive
      */
-//    private static void loadDirective() {
-//        Map<String, Object> beans = SolonBeanUtil.getBeansWithAnnotation(TemplateDirective.class);
-//        for (Map.Entry<String, Object> entry : beans.entrySet()) {
-//            Object bean = entry.getValue();
-//            TemplateDirective injectBean = bean.getClass().getAnnotation(TemplateDirective.class);
-//            Directive directive = (Directive) bean;
-//            Class<? extends Directive> directiveByName = EnjoyConfig.jfr.getEngine().getEngineConfig().getDirective(injectBean.value());
-//            if (directiveByName == null) {
-//                LOGGER.info("Add Directive: {}", injectBean.value());
-//                EnjoyConfig.jfr.addDirective(injectBean.value(), directive.getClass());
-//            }
-//        }
-//    }
+    private static void loadDirective() {
+        Solon.context().beanForeach((wrap) -> {
+            if (wrap.getClass().isAnnotationPresent(TemplateDirective.class)) {
+                TemplateDirective injectBean = wrap.getClass().getAnnotation(TemplateDirective.class);
+                Directive directive = (Directive) wrap.get();
+                Class<? extends Directive> directiveByName = EnjoyConfig.jfr.getEngine().getEngineConfig().getDirective(injectBean.value());
+                if (directiveByName == null) {
+                    LOGGER.info("Add Directive: {}", injectBean.value());
+                    EnjoyConfig.jfr.addDirective(injectBean.value(), directive.getClass());
+                }
+            }
+        });
+    }
 
     private Boolean datasourceIsExist() {
         try{

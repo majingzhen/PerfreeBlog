@@ -4,6 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.file.FileReader;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.lang3.StringUtils;
+import org.noear.solon.Solon;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.EncodedResource;
@@ -31,7 +32,7 @@ public class SqlExecUtils {
         }
         Resource resource = new FileSystemResource(sqlFile.getAbsoluteFile());
         EncodedResource encodedResource = new EncodedResource(resource, StandardCharsets.UTF_8);
-        HikariDataSource hikariDataSource = SolonBeanUtil.getBean(HikariDataSource.class);
+        HikariDataSource hikariDataSource = Solon.context().getBean(HikariDataSource.class);
         ScriptUtils.executeSqlScript(hikariDataSource.getConnection(), encodedResource);
     }
 }

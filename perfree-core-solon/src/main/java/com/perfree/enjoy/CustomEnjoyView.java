@@ -3,8 +3,6 @@ package com.perfree.enjoy;
 import com.jfinal.template.Template;
 import com.perfree.cache.OptionCacheService;
 import com.perfree.commons.common.CustomByteArrayOutputStream;
-import com.perfree.commons.utils.SolonBeanUtil;
-import com.perfree.commons.utils.SpringBeanUtil;
 import com.perfree.constant.OptionConstant;
 import com.perfree.enums.OptionEnum;
 import com.perfree.plugin.commons.PluginUtils;
@@ -17,6 +15,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.noear.solon.Solon;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -137,7 +136,7 @@ public class CustomEnjoyView extends JFinalView {
         if (request.getRequestURI().startsWith("/admin")) {
             return;
         }
-        OptionCacheService optionCacheService = SolonBeanUtil.getBean(OptionCacheService.class);
+        OptionCacheService optionCacheService = Solon.context().getBean(OptionCacheService.class);
         String customHead = optionCacheService.getDefaultValue(OptionEnum.WEB_CUSTOM_HEAD.getKey(), OptionConstant.OPTION_IDENTIFICATION_SYSTEM_SETTING, "");
         doc.head().append(customHead);
         String isAutoPushBaidu = optionCacheService.getDefaultValue(OptionEnum.WEB_IS_AUTO_PUSH_BAIDU.getKey(), OptionConstant.OPTION_IDENTIFICATION_SYSTEM_SETTING, "");

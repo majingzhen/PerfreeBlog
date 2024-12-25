@@ -1,9 +1,8 @@
 package com.perfree.plugin.handle;
 
-import com.perfree.commons.utils.SolonBeanUtil;
 import com.perfree.plugin.PluginApplicationContextHolder;
 import com.perfree.plugin.PluginInfo;
-import org.noear.solon.core.AppContext;
+import org.noear.solon.Solon;
 import org.springdoc.api.AbstractOpenApiResource;
 import org.springdoc.core.service.OpenAPIService;
 import org.springdoc.webmvc.api.MultipleOpenApiResource;
@@ -11,8 +10,6 @@ import org.springdoc.webmvc.api.OpenApiResource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ReflectionUtils;
-import org.noear.solon.annotation.*;
-import org.noear.solon.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
@@ -42,7 +39,7 @@ public class ControllerHandler implements BasePluginRegistryHandler{
 
     @Override
     public void initialize() throws Exception {
-        requestMappingHandlerMapping = SolonBeanUtil.getBean(RequestMappingHandlerMapping.class);
+        requestMappingHandlerMapping = Solon.context().getBean(RequestMappingHandlerMapping.class);
         getMappingForMethod = ReflectionUtils.findMethod(RequestMappingHandlerMapping.class, "getMappingForMethod", Method.class, Class.class);
         if (null != getMappingForMethod) {
             getMappingForMethod.setAccessible(true);

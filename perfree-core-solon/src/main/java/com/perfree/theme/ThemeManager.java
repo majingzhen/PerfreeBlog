@@ -12,8 +12,6 @@ import com.perfree.cache.OptionCacheService;
 import com.perfree.commons.constant.SystemConstants;
 import com.perfree.commons.exception.ServiceException;
 import com.perfree.commons.utils.FileUtils;
-import com.perfree.commons.utils.SolonBeanUtil;
-import com.perfree.commons.utils.SpringBeanUtil;
 import com.perfree.constant.OptionConstant;
 import com.perfree.enjoy.EnjoyConfig;
 import com.perfree.enums.ErrorCode;
@@ -22,9 +20,9 @@ import com.perfree.system.api.option.OptionApi;
 import com.perfree.theme.commons.ThemeFile;
 import com.perfree.theme.commons.ThemeInfo;
 import com.perfree.theme.commons.ThemeSetting;
-import jakarta.annotation.Resource;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.noear.solon.Solon;
 import org.noear.solon.annotation.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -374,7 +372,7 @@ public class ThemeManager {
 
     public void addStaticResourceHandler(String locationStr) {
         try{
-            SimpleUrlHandlerMapping mapping = (SimpleUrlHandlerMapping) SolonBeanUtil.getBean("resourceHandlerMapping");
+            SimpleUrlHandlerMapping mapping = Solon.context().getBean("resourceHandlerMapping");
             ResourceHttpRequestHandler handler = (ResourceHttpRequestHandler) mapping.getUrlMap().get("/static/**");
             Class<?> clazz = handler.getClass();
             Field field = clazz.getDeclaredField("locationValues");
