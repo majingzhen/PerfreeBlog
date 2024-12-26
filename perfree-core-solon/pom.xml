@@ -15,12 +15,24 @@
     <description>核心包solon版本,核心逻辑</description>
 
     <dependencies>
-        <!-- solon -->
+
+        <!-- 基础 -->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-lib</artifactId>
+        </dependency>
+
+        <!-- web -->
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-web</artifactId>
         </dependency>
 
+        <!-- Json序列化支持插件 -->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-serialization-snack3</artifactId>
+        </dependency>
         <!-- 异步 -->
         <dependency>
             <groupId>org.noear</groupId>
@@ -47,6 +59,22 @@
             <artifactId>solon-data-dynamicds</artifactId>
         </dependency>
 
+        <!-- 鉴权-->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-security-auth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-sessionstate-jwt</artifactId>
+        </dependency>
+
+        <!-- 参数与实体验证扩展插件 -->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-security-validation</artifactId>
+        </dependency>
+
         <!-- mybatis-plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -55,6 +83,11 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-jsqlparser</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-solon-plugin</artifactId>
         </dependency>
 
 <!--        <dependency>-->

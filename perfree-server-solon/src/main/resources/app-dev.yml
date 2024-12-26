@@ -21,6 +21,26 @@ solon.logging:
       maxHistory: 7
       maxSize: "100MB"
 
+perfree:
+  security:
+    # ip黑名单
+    ips:
+      - 1.1.1.1
+    whites:
+      - /login
+  autoLoadDevPlugin: true
+  autoLoadDevPluginTime: 10000
+  demoModel: false
+
+server:
+  session:
+    timeout: 7200
+    state:
+      jwt:
+        name: "token"
+        secret: "perfree"
+
+
 solon.app:
   name: "perfree-server"
   group: "com.perfree"
@@ -100,7 +120,3 @@ solon.openapi:
         - "com.perfree.controller.common"
 
 # Perfree自定义配置
-perfree:
-  autoLoadDevPlugin: true
-  autoLoadDevPluginTime: 10000
-  demoModel: false

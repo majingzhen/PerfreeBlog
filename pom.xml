@@ -37,6 +37,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <solon.version>3.0.4</solon.version>
+        <sa-token.version>1.39.0</sa-token.version>
         <spring.boot.version>3.2.1</spring.boot.version>
         <mybatis-plus.version>3.5.9</mybatis-plus.version>
         <lombok.version>1.18.30</lombok.version>
@@ -64,6 +65,12 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-solon-plugin</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-solon-plugin</artifactId>
+                <version>${sa-token.version}</version>
             </dependency>
 
 
