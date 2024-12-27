@@ -59,7 +59,7 @@ public class SecurityConfig {
 
         // 所有请求，排除白名单，校验权限字符（校验登录）
         AuthRuleImpl loginRule = new AuthRuleImpl();
-        loginRule.include("/**");
+        loginRule.include("/api/auth/**");
         for (String path : securityProperties.getWhites()) {
             loginRule.exclude(path);
         }

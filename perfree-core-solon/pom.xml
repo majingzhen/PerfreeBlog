@@ -81,9 +81,20 @@
             <artifactId>mybatis-plus-jsqlparser</artifactId>
         </dependency>
 
+        <!-- 鉴权 -->
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-solon-plugin</artifactId>
+        </dependency>
+
+        <!-- 模板引擎 -->
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-view</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-view-enjoy</artifactId>
         </dependency>
 
 <!--        <dependency>-->

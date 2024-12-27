@@ -3,6 +3,7 @@ package com.perfree.config;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.jfinal.template.Directive;
+import com.jfinal.template.DirectiveFactory;
 import com.perfree.commons.directive.TemplateDirective;
 import com.perfree.commons.exception.ServiceException;
 import com.perfree.commons.utils.*;
@@ -157,7 +158,7 @@ public class AppInit implements EventListener<AppLoadEndEvent> {
             if (wrap.getClass().isAnnotationPresent(TemplateDirective.class)) {
                 TemplateDirective injectBean = wrap.getClass().getAnnotation(TemplateDirective.class);
                 Directive directive = (Directive) wrap.get();
-                Class<? extends Directive> directiveByName = EnjoyConfig.jfr.getEngine().getEngineConfig().getDirective(injectBean.value());
+                DirectiveFactory directiveByName = EnjoyConfig.jfr.getEngine().getEngineConfig().getDirective(injectBean.value());
                 if (directiveByName == null) {
                     LOGGER.info("Add Directive: {}", injectBean.value());
                     EnjoyConfig.jfr.addDirective(injectBean.value(), directive.getClass());

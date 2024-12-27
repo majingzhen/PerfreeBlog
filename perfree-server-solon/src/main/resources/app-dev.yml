@@ -25,19 +25,19 @@ solon.logging:
       maxHistory: 7
       maxSize: "100MB"
 
+
 perfree:
   security:
     # ip黑名单
     ips:
       - 1.1.1.1
     whites:
+      - /
       - /api/login
       - /api/captchaImage
   autoLoadDevPlugin: true
   autoLoadDevPluginTime: 10000
   demoModel: false
-
-
 
 solon.app:
   name: "perfree-server"
