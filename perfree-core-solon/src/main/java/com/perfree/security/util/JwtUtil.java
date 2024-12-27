@@ -122,9 +122,11 @@ public class JwtUtil {
         }
         //  获取用户
         UserRespDTO byAccount = userApi.findByAccount(claims.getSubject());
-        LoginUserVO loginUser = new LoginUserVO();
-        loginUser.setId(byAccount.getId());
-        loginUser.setAccount(byAccount.getAccount());
+        LoginUserVO loginUser = LoginUserVO
+                .builder()
+                .id(byAccount.getId())
+                .account(byAccount.getAccount())
+                .build();
         return new UsernamePasswordAuthenticationToken(loginUser, token, null);
     }
 

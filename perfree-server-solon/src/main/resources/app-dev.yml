@@ -4,6 +4,10 @@ server:
   encoding: UTF-8
   session:
     timeout: 7200
+    state:
+      jwt:
+              name: "token"
+              secret: "perfree"
   request:
     maxBodySize: -1    # 对应原来的max-file-size
     maxFileSize: -1    # 对应原来的max-request-size
@@ -27,18 +31,12 @@ perfree:
     ips:
       - 1.1.1.1
     whites:
-      - /login
+      - /api/login
+      - /api/captchaImage
   autoLoadDevPlugin: true
   autoLoadDevPluginTime: 10000
   demoModel: false
 
-server:
-  session:
-    timeout: 7200
-    state:
-      jwt:
-        name: "token"
-        secret: "perfree"
 
 
 solon.app:

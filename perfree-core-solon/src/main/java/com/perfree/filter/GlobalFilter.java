@@ -1,6 +1,7 @@
 package com.perfree.filter;
 
 
+import cn.dev33.satoken.exception.NotLoginException;
 import com.perfree.commons.enums.ResultCodeEnum;
 import org.noear.solon.annotation.Component;
 import org.noear.solon.auth.AuthException;

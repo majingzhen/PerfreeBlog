@@ -1,5 +1,6 @@
 package com.perfree.service.user;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
@@ -101,8 +102,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (!hexPassword.equals(user.getPassword())) {
             throw new ServiceException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
+        StpUtil.login(user.getId());
         // 生成Token
-        String token = JwtUtil.generateToken(user.getAccount(), false);
+        String token = StpUtil.getTokenValue();
         Date expirationDate = new Date(System.currentTimeMillis() + SecurityConstants.REFRESH_TOKEN_EXPIRATION_TIME * 1000);
         // 生成refreshToken
         String refreshToken = JwtUtil.getRefreshToken(user.getAccount(), expirationDate);

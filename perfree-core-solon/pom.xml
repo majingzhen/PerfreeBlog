@@ -64,10 +64,6 @@
             <groupId>org.noear</groupId>
             <artifactId>solon-security-auth</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-sessionstate-jwt</artifactId>
-        </dependency>
 
         <!-- 参数与实体验证扩展插件 -->
         <dependency>

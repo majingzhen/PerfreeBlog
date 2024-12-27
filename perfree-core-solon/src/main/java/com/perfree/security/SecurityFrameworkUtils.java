@@ -1,10 +1,14 @@
 package com.perfree.security;
 
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.stp.StpUtil;
 import com.perfree.security.vo.LoginUserVO;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.time.LocalDateTime;
 
 /**
  * @author Perfree
@@ -13,19 +17,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class SecurityFrameworkUtils {
 
+
     /**
-     * 获得当前认证信息
-     *
-     * @return 认证信息
+     * 退出登录
      */
-    public static Authentication getAuthentication() {
-        SecurityContext context = SecurityContextHolder.getContext();
-        if (context == null) {
-            return null;
-        }
-        return context.getAuthentication();
+    public static void logout() {
+        StpUtil.logout();
     }
 
+    /**
+     * 是否登录
+     * @return
+     */
+    public static boolean isLogin(){
+        return StpUtil.isLogin();
+    }
 
     /**
      * 获取当前登录用户
@@ -34,18 +40,22 @@ public class SecurityFrameworkUtils {
      */
     @Nullable
     public static LoginUserVO getLoginUser() {
-        Authentication authentication = getAuthentication();
-        if (null == authentication || null == authentication.getPrincipal()) {
+        try {
+            int loginId = StpUtil.getLoginIdAsInt();
+            return LoginUserVO.builder()
+                    .id(loginId)
+                    .account(StpUtil.getLoginIdAsString())
+                    .build();
+        }catch (NotLoginException e) {
             return null;
         }
-        if (authentication.getPrincipal() instanceof LoginUserVO){
-            return (LoginUserVO) authentication.getPrincipal();
-        }
-        return null;
     }
 
     public static Integer getLoginUserId() {
-        LoginUserVO loginUser = getLoginUser();
-        return null == loginUser ? null : loginUser.getId();
+        try {
+            return StpUtil.getLoginIdAsInt();
+        }catch (NotLoginException e) {
+            return null;
+        }
     }
 }

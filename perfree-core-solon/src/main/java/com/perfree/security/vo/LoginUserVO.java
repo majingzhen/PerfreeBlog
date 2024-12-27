@@ -1,5 +1,6 @@
 package com.perfree.security.vo;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+@Builder
 public class LoginUserVO implements Serializable {
 
     @Serial

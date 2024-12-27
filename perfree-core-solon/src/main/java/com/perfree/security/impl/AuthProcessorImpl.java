@@ -1,13 +1,10 @@
 package com.perfree.security.impl;
 
 import cn.hutool.core.util.ArrayUtil;
-import org.noear.solon.Solon;
-import org.noear.solon.annotation.Inject;
+import com.perfree.security.SecurityFrameworkUtils;
 import org.noear.solon.auth.AuthProcessor;
 import org.noear.solon.auth.AuthUtil;
 import org.noear.solon.auth.annotation.Logical;
-import org.noear.solon.boot.web.SessionStateBase;
-import org.noear.solon.core.handle.SessionState;
 
 /**
  * @ClassName AuthProcessorImpl
@@ -28,7 +25,7 @@ public class AuthProcessorImpl implements AuthProcessor {
 
     @Override
     public boolean verifyLogined() {
-        return AuthUtil.verifyLogined();
+        return SecurityFrameworkUtils.isLogin();
     }
 
     @Override
