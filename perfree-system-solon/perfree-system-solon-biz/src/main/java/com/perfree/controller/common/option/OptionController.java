@@ -33,6 +33,9 @@ public class OptionController {
         List<OptionDTO> optionDTOList = new ArrayList<>();
         for (String key : keys) {
             OptionDTO openOption = optionCacheService.getOption(key, identification);
+            if (openOption == null) {
+                openOption = new OptionDTO();
+            }
             optionDTOList.add(openOption);
         }
         return CommonResult.success(OptionConvert.INSTANCE.convertCacheDTO2RespListVO(optionDTOList));

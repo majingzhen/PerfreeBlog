@@ -30,7 +30,7 @@ import java.io.IOException;
  * @description jwt过滤器
  * @date 15:40 2023/9/28
  */
-@Component
+//@Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
 

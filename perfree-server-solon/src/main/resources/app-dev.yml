@@ -43,6 +43,11 @@ solon.app:
   name: "perfree-server"
   group: "com.perfree"
 
+solon.view:
+  prefix: /
+  suffix: .html
+  devMode: true
+
 # 数据源配置
 solon.dataSources:
   perfree:

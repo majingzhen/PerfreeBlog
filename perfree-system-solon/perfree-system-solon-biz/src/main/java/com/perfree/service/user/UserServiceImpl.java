@@ -115,8 +115,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         loginUserRespVO.setRefreshToken(refreshToken);
         loginUserRespVO.setExpiresTime(expirationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 
-        Authentication authentication = JwtUtil.getAuthentication(token);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        //Authentication authentication = JwtUtil.getAuthentication(token);
+        //SecurityContextHolder.getContext().setAuthentication(authentication);
         // 记录登录时间及IP
         user.setLoginIp(WebUtils.getClientIP());
         user.setLoginDate(LocalDateTime.now());
