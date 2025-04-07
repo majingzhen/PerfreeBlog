@@ -52,9 +52,9 @@ solon.view:
 solon.dataSources:
   perfree:
     class: "com.zaxxer.hikari.HikariDataSource"
-    jdbcUrl: "jdbc:mysql://perfree:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
-    username: "perfree"
-    password: "HiimaWf3YeyL4mej"
+    jdbcUrl: "jdbc:mysql://127.0.0.1:3306/perfree?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&nullCatalogMeansCurrent=true"
+    username: "root"
+    password: "123456"
     driverClassName: "com.mysql.cj.jdbc.Driver"
     hikariCP:
       minimumIdle: 30

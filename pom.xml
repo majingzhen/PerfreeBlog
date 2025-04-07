@@ -19,7 +19,7 @@
 <!--        <module>perfree-core</module>-->
         <module>perfree-core-solon</module>
 <!--        <module>perfree-plugins</module>-->
-        <module>perfree-plugins-solon</module>
+<!--        <module>perfree-plugins-solon</module>-->
 <!--        <module>perfree-system</module>-->
         <module>perfree-system-solon</module>
 <!--        <module>perfree-server</module>-->

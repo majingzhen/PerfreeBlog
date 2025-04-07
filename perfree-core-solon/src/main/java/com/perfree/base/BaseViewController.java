@@ -19,10 +19,12 @@ import org.noear.solon.annotation.Controller;
 import org.noear.solon.annotation.Inject;
 import org.noear.solon.core.AppContext;
 import org.noear.solon.core.handle.Context;
+import org.noear.solon.core.handle.ModelAndView;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.io.File;
+import java.util.Map;
 import java.util.Objects;
 
 @Controller
@@ -97,5 +99,23 @@ public class BaseViewController {
         File devFile = ClassPathFileUtil.getDevClassPathFile(SystemConstants.DEV_THEMES_PATH + SystemConstants.FILE_SEPARATOR +
                 currentTheme() + SystemConstants.FILE_SEPARATOR + view);
         return file.exists() || (devFile != null && devFile.exists());
+    }
+
+
+    public ModelAndView view(String viewUri){
+        //注意，带后缀
+        ModelAndView vm = new ModelAndView(viewUri);
+        vm.put("context", Context.current());
+        return vm;
+    }
+
+    public ModelAndView view(String viewUri, Map<String,Object> model){
+        //注意，带后缀
+        ModelAndView vm = new ModelAndView(viewUri);
+
+        vm.put("context", Context.current());
+        vm.putAll(model);
+
+        return vm;
     }
 }

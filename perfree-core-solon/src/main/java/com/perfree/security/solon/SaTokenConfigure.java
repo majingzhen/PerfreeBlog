@@ -1,8 +1,6 @@
-package com.perfree.security;
+package com.perfree.security.solon;
 
 import cn.dev33.satoken.config.SaTokenConfig;
-import cn.dev33.satoken.solon.integration.SaTokenFilter;
-import org.noear.solon.Solon;
 import org.noear.solon.annotation.Bean;
 import org.noear.solon.annotation.Configuration;
 
@@ -27,7 +25,7 @@ public class SaTokenConfigure {
         // token有效期 30天
         config.setTimeout(30 * 24 * 60 * 60);
         // token临时有效期 (指定时间内无操作就视为token过期) 默认-1代表不限制
-        config.setActivityTimeout(-1);
+        config.setActiveTimeout(-1);
         // 是否允许同一账号并发登录
         config.setIsConcurrent(true);
         // 在多人登录同一账号时，是否共用一个token

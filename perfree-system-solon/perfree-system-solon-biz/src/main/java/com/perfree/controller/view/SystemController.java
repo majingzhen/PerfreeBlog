@@ -14,6 +14,9 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.noear.solon.annotation.*;
 import org.noear.solon.boot.web.MimeType;
+import org.noear.solon.core.handle.Context;
+import org.noear.solon.lang.Preview;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTRegularTextRun;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -29,10 +32,12 @@ public class SystemController extends BaseViewController {
 
     @ApiOperation(value = "首页")
     @Mapping("/")
+    @Get
     @FrontViewNodeRender
-    public String index() {
-        return themeView("index.html");
+    public Object index(Context ctx) {
+       return view(themeView("index.html"));
     }
+
 
     @Get
     @Mapping("/rss")
